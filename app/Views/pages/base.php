@@ -18,10 +18,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-<?= isset($data->breadcrumbs) ? 6 : 12 ?> col-md-12 col-sm-6">
-                            <h5 class="mb-0"><?= $data->title ?? 'Titulo' ?></h5>
+                            <h3 class="mb-0"><?= $data->title ?? 'Titulo' ?></h3>
                         </div>
                         <?php if(isset($data->breadcrumbs) ): ?>
-                            <div class="col-lg-6 col-md-12 col-sm-6 flex-end">
+                            <div class="col-lg-6 col-md-12 col-sm-6 d-flex align-items-center justify-content-end flex-end flex-end">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb breadcrumb-style1 mb-0 justify-content-end">
                                         <?php foreach($data->breadcrumbs as $breadcrumb): ?>

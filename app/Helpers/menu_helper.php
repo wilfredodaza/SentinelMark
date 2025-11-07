@@ -124,23 +124,62 @@ function urlOption($references = null)
 
 function isActive($data)
 {
-    if(base_url(uri_string()) == $data) {
+    $segments = explode("/", uri_string());
+    $last = end($segments); // último segmento
+
+    if (base_url(uri_string()) == $data) {
         return 'active';
     }
+
+    // Si el último segmento es numérico
+    if (is_numeric($last)) {
+        // Por ejemplo, comparar sin el ID
+        $urlWithoutId = implode("/", array_slice($segments, 0, -1));
+        if (base_url($urlWithoutId) == $data) {
+            return 'active';
+        }
+    }
+
+    return '';
 }
 
-function subActive($id){
+function subActive($id)
+{
     $m_model = new Menu();
     $data = $m_model->where([
-        'type'          => 'secundario',
-        'status'        => 'active',
-        'references'    => $id
+        'type'       => 'secundario',
+        'status'     => 'active',
+        'references' => $id
     ])->findAll();
+
     $valid = '';
-    foreach($data as $menu){
-        if(base_url(uri_string()) == urlOption($menu->id))
+    $currentUri = uri_string();
+    $segments = explode("/", $currentUri);
+    $last = end($segments);
+
+    foreach ($data as $menu) {
+        $menuUrl = urlOption($menu->id);
+        $currentFull = base_url($currentUri);
+
+        // ✅ Caso 1: URL exacta
+        if ($currentFull === $menuUrl) {
             $valid = 'active open';
+            break;
+        }
+
+        // ✅ Caso 2: Si el último segmento es numérico, comparar sin el ID
+        if (is_numeric($last)) {
+            $urlWithoutId = implode("/", array_slice($segments, 0, -1));
+            $urlWithoutIdFull = base_url($urlWithoutId);
+
+            if ($urlWithoutIdFull === $menuUrl) {
+                $valid = 'active open';
+                break;
+            }
+        }
     }
+
     return $valid;
 }
+
 
