@@ -1,10 +1,7 @@
 
 
-const data_niza = [
-    {id:1, title:"Productos químicos", description:"Productos químicos para la industria, la ciencia y la fotografía; productos químicos para la agricultura, la horticultura y la silvicultura; resinas artificiales en bruto, materias plásticas en bruto; abonos; composiciones extinguidoras; preparaciones para templar y soldar metales; productos para conservar alimentos; adhesivos (pegamentos) para la industria."},
-    {id:19, title:"Materiales de construcción no metálicos", description:"Materiales de construcción no metálicos; tuberías rígidas no metálicas para la construcción; asfalto, pez y betún; construcciones transportables no metálicas; monumentos no metálicos."},
-    {id:36, title:"Servicios financieros", description:"Seguros; operaciones financieras; operaciones monetarias; negocios inmobiliarios."},
-]
+const data_niza = clasesNiza.filter(c => detail.Clase.includes(c.id));
+
 
 const cardColor = config.colors.cardColor;
 const labelColor = config.colors.textMuted;
