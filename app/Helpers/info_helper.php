@@ -270,7 +270,7 @@ function getBrands(){
         ],
         (object)[
             "id" => 15,
-            "Marca" => "Ocean Blue Seafoods",
+            "Marca" => "Ocean Blue Seafoods 2",
             "nombre_corto" => "OceanBlue",
             "País" => "Uruguay",
             "Clase" => [29, 31, 35],
