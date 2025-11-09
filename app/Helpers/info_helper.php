@@ -293,7 +293,7 @@ function getBrands(){
 function getOppositions(){
 
     return [
-        [
+        (object) [
             'id' => 1,
             'caso' => 'OP-2025-001',
             "Marca_Referencia" => (object)[
@@ -311,14 +311,33 @@ function getOppositions(){
                 "Clase" => [9, 11, 37],
             ],
             'pais' => 'CO',
-            'clase' => 30,
+            'clase' => [9],
             'tipo_causal' => 'Confusión',
             'estado' => 'En estudio',
             'riesgo' => 'Alto',
+            'nivel' => 85,
             'fecha_limite' => '2025-11-15',
             'abogado_asignado' => 'Laura Gómez',
+            'observation'   => 'lorem ipsum',
+            'documents' => [
+                (object) [
+                    'id'    => 1,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-25',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ],
+                (object) [
+                    'id'    => 2,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-28',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ]
+            ],
+            'events'   => []
         ],
-        [
+        (object) [
             'id' => 2,
             'caso' => 'OP-2025-002',
             "Marca_Referencia" => (object)[
@@ -336,14 +355,26 @@ function getOppositions(){
                 "Clase" => [5, 35, 44],
             ],
             'pais' => 'CO',
-            'clase' => 1,
+            'clase' => [5, 35],
             'tipo_causal' => 'Absoluta',
             'estado' => 'Activa',
             'riesgo' => 'Medio',
+            'nivel' => 55,
             'fecha_limite' => '2025-11-10',
             'abogado_asignado' => 'Carlos Pérez',
+            'observation'   => 'lorem ipsum',
+            'documents' => [
+                (object) [
+                    'id'    => 3,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-25',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ]
+            ],
+            'events' => []
         ],
-        [
+        (object) [
             'id'    => 3,
             'caso' => 'OP-2025-003',
             "Marca_Referencia" => (object)[
@@ -361,12 +392,74 @@ function getOppositions(){
                 "Clase" => [30, 43],
             ],
             'pais' => 'EC',
-            'clase' => 29,
+            'clase' => [30],
             'tipo_causal' => 'Competencia desleal',
             'estado' => 'Cerrada (favorable)',
             'riesgo' => 'Bajo',
+            'nivel' => 32,
             'fecha_limite' => '2025-09-18',
             'abogado_asignado' => 'Sofía Ruiz',
+            'observation'   => 'lorem ipsum',
+            'documents' => [
+                (object) [
+                    'id'    => 4,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-9-25',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ],
+                (object) [
+                    'id'    => 5,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-12',
+                    'estado'=> 'Activo',
+                    'version'   => '2.0.0'
+                ],
+                (object) [
+                    'id'    => 6,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-30',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ]
+            ],
+            'events'   => [
+                (object)[
+                    'tipo' => 'Creación del expediente',
+                    'descripcion' => 'Se creó el expediente de oposición en el sistema SIC.',
+                    'color' => 'azul',
+                    'tiempo' => 'Hace 15 días',
+                    'documento' => 'uploads/documentos/creacion_expediente.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Cambio de estado',
+                    'descripcion' => 'El estado del expediente cambió a "En estudio".',
+                    'color' => 'naranja',
+                    'tiempo' => 'Hace 10 días',
+                    'documento' => 'uploads/documentos/cambio_estado.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Envío de oposición',
+                    'descripcion' => 'Se envió la documentación de oposición a la entidad correspondiente.',
+                    'color' => 'verde',
+                    'tiempo' => 'Hace 7 días',
+                    'documento' => 'uploads/documentos/envio_oposicion.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Recepción de respuesta',
+                    'descripcion' => 'Se recibió la respuesta del solicitante de marca.',
+                    'color' => 'azul',
+                    'tiempo' => 'Hace 3 días',
+                    'documento' => 'uploads/documentos/recepcion_respuesta.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Decisión final',
+                    'descripcion' => 'La SIC emitió la decisión final: Oposición favorable.',
+                    'color' => 'verde',
+                    'tiempo' => 'Hoy',
+                    'documento' => 'uploads/documentos/decision_final.pdf'
+                ],
+            ]
         ]
     ];
 }

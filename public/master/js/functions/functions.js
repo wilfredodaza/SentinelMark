@@ -247,3 +247,37 @@ function viewImage(url, title){
     },
   })
 }
+
+const obtenerDiasSemana = () => {
+  const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+  const hoy = new Date();
+  
+  // Obtener el índice del día actual (0 = domingo, 1 = lunes, ..., 6 = sábado)
+  const indiceHoy = hoy.getDay(); 
+  
+  // Mapear a índice dentro de lunes-viernes (1-5)
+  // Si es sábado (6) o domingo (0), empezamos desde lunes
+  const indiceSemana = indiceHoy === 0 || indiceHoy === 6 ? 0 : indiceHoy - 1;
+  
+  // Reordenar el array desde el día actual
+  const resultado = [...dias.slice(indiceSemana), ...dias.slice(0, indiceSemana)];
+  
+  return resultado;
+};
+
+const obtenerDiasSemanaShort = () => {
+  const dias = ['L', 'M', 'M', 'J', 'V'];
+  const hoy = new Date();
+  
+  // Obtener el índice del día actual (0 = domingo, 1 = lunes, ..., 6 = sábado)
+  const indiceHoy = hoy.getDay(); 
+  
+  // Mapear a índice dentro de lunes-viernes (1-5)
+  // Si es sábado (6) o domingo (0), empezamos desde lunes
+  const indiceSemana = indiceHoy === 0 || indiceHoy === 6 ? 0 : indiceHoy - 1;
+  
+  // Reordenar el array desde el día actual
+  const resultado = [...dias.slice(indiceSemana), ...dias.slice(0, indiceSemana)];
+  
+  return resultado;
+};

@@ -10,6 +10,8 @@ class MenuSeeder extends Seeder
 {
     public function run()
     {
+        // SELECT `option`, url, icon, position, type, `references`, status, component, title, description, `table` FROM `menus`
+
         $menus = [
             array('option' => 'Portafolio de Marcas','url' => '','icon' => 'ri-folders-line','position' => '1','type' => 'primario','references' => '0','status' => 'active','component' => 'table','title' => NULL,'description' => NULL,'table' => 'table'),
             array('option' => 'Protección de Marcas','url' => '','icon' => 'ri-folder-shield-2-line','position' => '2','type' => 'primario','references' => '0','status' => 'active','component' => 'table','title' => NULL,'description' => NULL,'table' => 'table'),
@@ -19,9 +21,9 @@ class MenuSeeder extends Seeder
             array('option' => 'RegulaMark','url' => '','icon' => 'ri-pencil-ruler-2-line','position' => '6','type' => 'primario','references' => '0','status' => 'active','component' => 'table','title' => NULL,'description' => NULL,'table' => 'table'),
             array('option' => 'Finanzas IP','url' => '','icon' => 'ri-money-dollar-circle-line','position' => '8','type' => 'primario','references' => NULL,'status' => 'active','component' => 'table','title' => NULL,'description' => NULL,'table' => 'table'),
             array('option' => 'Admin & Seguridad','url' => '','icon' => 'ri-shield-user-line','position' => '9','type' => 'primario','references' => NULL,'status' => 'active','component' => 'table','title' => NULL,'description' => NULL,'table' => 'table'),
-            array('option' => 'Listado de marcas','url' => 'user','icon' => NULL,'position' => '1','type' => 'secundario','references' => '1','status' => 'active','component' => 'table','title' => 'Listado de marcas','description' => NULL,'table' => 'users'),
+            array('option' => 'Listado de marcas','url' => 'brand_portfolio','icon' => NULL,'position' => '1','type' => 'secundario','references' => '1','status' => 'active','component' => 'controller','title' => 'Listado de marcas','description' => NULL,'table' => 'users'),
             array('option' => 'Crear  marca nueva','url' => 'users','icon' => NULL,'position' => '2','type' => 'secundario','references' => '1','status' => 'active','component' => 'table','title' => 'Crear nueva marca','description' => NULL,'table' => 'users'),
-            array('option' => 'Tablero de Oposiciones','url' => 'users','icon' => '1','position' => '1','type' => 'secundario','references' => '2','status' => 'active','component' => 'table','title' => 'Tablero de oposiciones','description' => NULL,'table' => 'users'),
+            array('option' => 'Tablero de Oposiciones','url' => 'trademark_protection','icon' => '1','position' => '1','type' => 'secundario','references' => '2','status' => 'active','component' => 'controller','title' => 'Tablero de oposiciones','description' => NULL,'table' => 'users'),
             array('option' => 'Tablero de requerimientos y recursos','url' => '','icon' => NULL,'position' => '1','type' => 'secundario','references' => '3','status' => 'active','component' => 'table','title' => NULL,'description' => NULL,'table' => 'users'),
             array('option' => 'Biblioteca de plantillas','url' => '1','icon' => NULL,'position' => '1','type' => 'secundario','references' => '4','status' => 'active','component' => 'table','title' => NULL,'description' => NULL,'table' => 'users'),
             array('option' => 'Generador de documentos','url' => '2','icon' => NULL,'position' => '1','type' => 'secundario','references' => '4','status' => 'active','component' => 'table','title' => 'Generador de documentos','description' => NULL,'table' => 'users'),
