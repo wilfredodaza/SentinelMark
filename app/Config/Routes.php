@@ -31,7 +31,8 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'HomeController::home');
+$routes->get('/', 'AuthController::login');
+// $routes->get('/', 'HomeController::home');
 
 $routes->get('/chat', 'PruebaController::chat');
 $routes->get('/datatable/(:segment)', 'PruebaController::datatable/$1');
