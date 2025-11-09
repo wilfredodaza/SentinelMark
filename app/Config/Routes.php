@@ -60,6 +60,12 @@ $routes->group('dashboard', function ($routes){
 		$routes->get('data', 'BrandPortfolioController::getData');
 		$routes->get('(:num)', 'BrandPortfolioController::detail/$1');
 	});
+
+	$routes->group('trademark_protection', function($routes){
+		$routes->get('', 'TrademarkProtectionController::index');
+		$routes->get('data', 'TrademarkProtectionController::getData');
+		$routes->get('(:num)', 'TrademarkProtectionController::detail/$1');
+	});
 });
 
 $routes->get('/login', 'AuthController::login');

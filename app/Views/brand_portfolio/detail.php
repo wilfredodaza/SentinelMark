@@ -57,9 +57,9 @@
                                     aria-controls="navs-pills-detail-<?= $tablist->id ?>"
                                     aria-selected="true">
                                     <span class="d-none d-sm-block">
-                                    <div class="row align-items-center ">
-                                            <div class="col-2"><i class="tf-icons <?= $tablist->icon ?> me-2"></i> </div>
-                                            <div class="col-10 " style="text-wrap:auto"><?= $tablist->name ?></div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                            <div class=""><i class="tf-icons <?= $tablist->icon ?> me-2"></i> </div>
+                                            <div class="" style="text-wrap:auto"><?= $tablist->name ?></div>
                                         </div>
                                     </span>
                                     <i class="<?= $tablist->icon ?> ri-20px d-sm-none"></i>
