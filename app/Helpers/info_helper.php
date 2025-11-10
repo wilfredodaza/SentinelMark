@@ -3,7 +3,7 @@
 function getBrands(){
     return [
         (object)[
-            "id" => 1,
+            "id" => 15,
             "Marca" => "Café Huila Premium Selection",
             "nombre_corto" => "CafeHuila",
             "País" => "Colombia",
@@ -269,8 +269,8 @@ function getBrands(){
             "descripcion_abogado" => "Solicitud denegada por coincidencia con marca extranjera. Recomendado presentar recurso de revisión."
         ],
         (object)[
-            "id" => 15,
-            "Marca" => "Ocean Blue Seafoods 2",
+            "id" => 1,
+            "Marca" => "Ocean Blue Seafoods",
             "nombre_corto" => "OceanBlue",
             "País" => "Uruguay",
             "Clase" => [29, 31, 35],
