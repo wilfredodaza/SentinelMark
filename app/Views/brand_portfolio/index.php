@@ -302,7 +302,7 @@
 
                             <div class="row">
                                 
-                            <div class="col-lg-6 col-md-12 col-sm-12 my-2">
+                                <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <div class="form-floating form-floating-outline">
                                         <select class="select2 form-select required" data-allow-clear="true" id="agente-add" name="agente-add" aria-describedby="estadoHelp">
                                             <option value=""></option>
@@ -369,7 +369,7 @@
                                         Busca <span class="text-primary text-nowrap">todo en un mismo lugar</span>.
                                     </span>
                                     <div class="d-flex align-items-center justify-content-between app-academy-md-80 w-100">
-                                        <input type="search" placeholder="Realice tu bisqueda" class="form-control form-control-sm me-4">
+                                        <input type="search" placeholder="Realice tu busqueda" class="form-control form-control-sm me-4">
                                         <button type="submit" class="btn btn-primary btn-icon waves-effect waves-light">
                                             <i class="ri-search-line ri-22px"></i>
                                         </button>
