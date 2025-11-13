@@ -463,3 +463,208 @@ function getOppositions(){
         ]
     ];
 }
+
+function getBrandsDefenses(){
+
+    return [
+        (object) [
+            'id' => 1,
+            'caso' => 1,
+            'tipo'  => 'Requerimiento',    
+            "Marca_Referencia" => 2,
+            'pais' => 'Colombia',
+            'clase' => [9],
+            'tipo_causal' => 'Confusión',
+            'estado' => 'En borrador',
+            'riesgo' => 'Alto',
+            'nivel' => 85,
+            'fecha_limite' => '2025-11-15',
+            'abogado_asignado' => 'Laura Gómez',
+            'observation'   => 'lorem ipsum',
+            'documents' => [
+                (object) [
+                    'id'    => 1,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-25',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ],
+                (object) [
+                    'id'    => 2,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-28',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ]
+            ],
+            'events'   => [],
+            'adjunto'   => []
+        ],
+        (object) [
+            'id' => 2,
+            'caso' => 2,
+            'tipo'  => 'Recurso',
+            "Marca_Referencia" => 3,
+            'pais' => 'Colombia',
+            'clase' => [5, 35],
+            'tipo_causal' => 'Absoluta',
+            'estado' => 'En decisión',
+            'riesgo' => 'Medio',
+            'nivel' => 55,
+            'fecha_limite' => '2025-11-10',
+            'abogado_asignado' => 'Carlos Pérez',
+            'observation'   => 'lorem ipsum',
+            'documents' => [
+                (object) [
+                    'id'    => 3,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-25',
+                    'estado'=> 'Activo',
+                    'version'   => '1.0.0'
+                ]
+            ],
+            'adjunto' => [],
+            'events' => []
+        ],
+        (object) [
+            'id'    => 3,
+            'caso' => 3,
+            'tipo'  => 'Litigio',
+            "Marca_Referencia" => 13,
+            'pais' => 'Ecuador',
+            'clase' => [30],
+            'tipo_causal' => 'Competencia desleal',
+            'estado' => 'Cerrado',
+            'riesgo' => 'Bajo',
+            'nivel' => 32,
+            'fecha_limite' => '2025-09-18',
+            'abogado_asignado' => 'Sofía Ruiz',
+            'observation'   => 'lorem ipsum',
+            'adjunto' => (object) [
+                    'id'    => 1,
+                    'reference'  => '001',
+                    'entidad' => 'NN',
+                    'recepcion'=> '11-11-2025',
+                    'notification'   => [
+                        (object)['name' => 'WhatsApp', 'envio' => "57 3001234567"],
+                        (object)['name' => 'Gmail', 'envio' => "usuario@sentinelmark.com"]
+                    ],
+                    'extracto'  => "NN",
+                    'adjunto' => "https://www.turnerlibros.com/wp-content/uploads/2021/02/ejemplo.pdf"
+            ],
+            'documents' => [
+                (object) [
+                    'id'    => 4,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-9-25',
+                    'estado'=> 'borrador',
+                    'version'   => '1.0.0',
+                    'responsable'   => 'Sofia Ruiz'
+                ],
+                (object) [
+                    'id'    => 5,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-12',
+                    'estado'=> 'revisión',
+                    'version'   => '2.0.0',
+                    'responsable'   => 'Sofia Ruiz'
+                ],
+                (object) [
+                    'id'    => 6,
+                    'tipo'  => 'NN',
+                    'fecha' => '2025-10-30',
+                    'estado'=> 'Final',
+                    'version'   => '3.0.0',
+                    'responsable'   => 'Sofia Ruiz'
+                ]
+            ],
+            'events'   => [
+                (object)[
+                    'tipo' => 'Creación del expediente',
+                    'descripcion' => 'Se creó el expediente de oposición en el sistema SIC.',
+                    'color' => 'azul',
+                    'tiempo' => 'Hace 15 días',
+                    'documento' => 'uploads/documentos/creacion_expediente.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Cambio de estado',
+                    'descripcion' => 'El estado del expediente cambió a "En estudio".',
+                    'color' => 'naranja',
+                    'tiempo' => 'Hace 10 días',
+                    'documento' => 'uploads/documentos/cambio_estado.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Envío de oposición',
+                    'descripcion' => 'Se envió la documentación de oposición a la entidad correspondiente.',
+                    'color' => 'verde',
+                    'tiempo' => 'Hace 7 días',
+                    'documento' => 'uploads/documentos/envio_oposicion.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Recepción de respuesta',
+                    'descripcion' => 'Se recibió la respuesta del solicitante de marca.',
+                    'color' => 'azul',
+                    'tiempo' => 'Hace 3 días',
+                    'documento' => 'uploads/documentos/recepcion_respuesta.pdf'
+                ],
+                (object)[
+                    'tipo' => 'Decisión final',
+                    'descripcion' => 'La SIC emitió la decisión final: Oposición favorable.',
+                    'color' => 'verde',
+                    'tiempo' => 'Hoy',
+                    'documento' => 'uploads/documentos/decision_final.pdf'
+                ],
+            ]
+        ]
+    ];
+}
+
+function getClasesNiza(){
+    return [
+        (object)[ "id" => 1, "title" => "Productos químicos", "description" => "Productos químicos para la industria, la ciencia y la fotografía; productos químicos para la agricultura, la horticultura y la silvicultura; resinas artificiales en bruto, materias plásticas en bruto; abonos; composiciones extinguidoras; preparaciones para templar y soldar metales; productos para conservar alimentos; adhesivos (pegamentos) para la industria." ],
+        (object)[ "id" => 2, "title" => "Pinturas y barnices", "description" => "Pinturas, barnices, lacas; productos contra el óxido y el deterioro de la madera; colorantes; tintes; resinas naturales en bruto; metales en hojas y en polvo para pintores, decoradores, impresores y artistas." ],
+        (object)[ "id" => 3, "title" => "Productos cosméticos y de limpieza", "description" => "Preparaciones para blanquear y otras sustancias para la colada; preparaciones para limpiar, pulir, desengrasar y raspar; jabones; perfumería, aceites esenciales, cosméticos, lociones capilares; dentífricos." ],
+        (object)[ "id" => 4, "title" => "Aceites y combustibles", "description" => "Aceites y grasas para uso industrial; lubricantes; productos para absorber, regar y solidificar el polvo; combustibles (incluidos los carburantes) e iluminantes; velas y mechas para iluminación." ],
+        (object)[ "id" => 5, "title" => "Productos farmacéuticos", "description" => "Productos farmacéuticos y veterinarios; productos higiénicos y sanitarios para uso médico; alimentos y sustancias dietéticas para uso médico o veterinario; alimentos para bebés; suplementos alimenticios para personas o animales; emplastos, material para curas; material para empastes e improntas dentales; desinfectantes; productos para eliminar animales dañinos; fungicidas, herbicidas." ],
+        (object)[ "id" => 6, "title" => "Metales comunes", "description" => "Metales comunes y sus aleaciones; materiales de construcción metálicos; construcciones transportables metálicas; materiales metálicos para vías férreas; cables y alambres metálicos no eléctricos; cerrajería y artículos de ferretería metálicos; tubos metálicos; cofres fuertes; productos metálicos no comprendidos en otras clases; minerales." ],
+        (object)[ "id" => 7, "title" => "Máquinas y motores", "description" => "Máquinas y máquinas herramientas; motores (excepto los motores para vehículos terrestres); acoplamientos y elementos de transmisión (excepto los para vehículos terrestres); instrumentos agrícolas que no sean herramientas de mano accionadas manualmente; incubadoras de huevos; distribuidores automáticos." ],
+        (object)[ "id" => 8, "title" => "Herramientas manuales", "description" => "Herramientas e instrumentos de mano accionados manualmente; artículos de cuchillería, tenedores y cucharas; armas blancas; maquinillas de afeitar." ],
+        (object)[ "id" => 9, "title" => "Aparatos electrónicos y científicos", "description" => "Aparatos e instrumentos científicos, náuticos, geodésicos, fotográficos, cinematográficos, ópticos, de pesaje, de medida, de señalización, de control (inspección), de socorro (salvamento) y de enseñanza; aparatos e instrumentos para la conducción, distribución, transformación, acumulación, regulación o control de la electricidad; aparatos para el registro, transmisión, reproducción de sonido o imágenes; soportes de registro magnéticos, discos acústicos; máquinas de registrar, calcular y procesar datos; equipos de extinción de incendios." ],
+        (object)[ "id" => 10, "title" => "Aparatos médicos", "description" => "Aparatos e instrumentos quirúrgicos, médicos, odontológicos y veterinarios, así como sus partes y accesorios; artículos ortopédicos; material de sutura; aparatos de masaje; prótesis, implantes e instrumentos de diagnóstico." ],
+        (object)[ "id" => 11, "title" => "Aparatos de iluminación y calefacción", "description" => "Aparatos de alumbrado, calefacción, producción de vapor, cocción, refrigeración, secado, ventilación, distribución de agua e instalaciones sanitarias." ],
+        (object)[ "id" => 12, "title" => "Vehículos", "description" => "Vehículos; aparatos de locomoción terrestre, aérea o acuática." ],
+        (object)[ "id" => 13, "title" => "Armas de fuego", "description" => "Armas de fuego; municiones y proyectiles; explosivos; fuegos artificiales." ],
+        (object)[ "id" => 14, "title" => "Joyería y relojería", "description" => "Metales preciosos y sus aleaciones, así como productos de estas materias o chapados no comprendidos en otras clases; joyería, bisutería, piedras preciosas; relojería e instrumentos cronométricos." ],
+        (object)[ "id" => 15, "title" => "Instrumentos musicales", "description" => "Instrumentos de música." ],
+        (object)[ "id" => 16, "title" => "Papelería y material de oficina", "description" => "Papel, cartón y productos de estas materias no comprendidos en otras clases; productos de imprenta; artículos para encuadernar; fotografías; artículos de papelería; adhesivos (pegamentos) para la papelería o uso doméstico; material para artistas; pinceles; máquinas de escribir y artículos de oficina (excepto muebles); material de instrucción o de enseñanza (excepto aparatos); materias plásticas para embalar; caracteres de imprenta; clichés de imprenta." ],
+        (object)[ "id" => 17, "title" => "Caucho y plásticos", "description" => "Caucho, gutapercha, goma, amianto, mica y productos de estas materias no comprendidos en otras clases; productos en materias plásticas semielaboradas; materiales para calafatear, estopar y aislar; tubos flexibles no metálicos." ],
+        (object)[ "id" => 18, "title" => "Artículos de cuero", "description" => "Cuero e imitaciones de cuero, productos de estas materias no comprendidos en otras clases; pieles de animales; baúles y maletas; paraguas, sombrillas y bastones; fustas y artículos de guarnicionería." ],
+        (object)[ "id" => 19, "title" => "Materiales de construcción no metálicos", "description" => "Materiales de construcción no metálicos; tuberías rígidas no metálicas para la construcción; asfalto, pez y betún; construcciones transportables no metálicas; monumentos no metálicos." ],
+        (object)[ "id" => 20, "title" => "Muebles", "description" => "Muebles, espejos, marcos; productos de madera, corcho, caña, junco, mimbre, cuerno, hueso, marfil, concha, ámbar, nácar, espuma de mar y sucedáneos de todas estas materias o de plásticos no comprendidos en otras clases." ],
+        (object)[ "id" => 21, "title" => "Utensilios de cocina", "description" => "Utensilios y recipientes para el menaje o la cocina; peines y esponjas; cepillos (excepto pinceles); material para fabricar cepillos; material de limpieza; lana de acero; vidrio en bruto o semielaborado (excepto el vidrio de construcción); artículos de cristalería, porcelana y loza no comprendidos en otras clases." ],
+        (object)[ "id" => 22, "title" => "Cuerdas y fibras textiles", "description" => "Cuerdas, cordeles, redes, tiendas de campaña, lonas, velas (para embarcaciones), sacos y bolsas (no comprendidos en otras clases); materiales de acolchado y relleno (excepto caucho o plásticos); materias textiles fibrosas en bruto." ],
+        (object)[ "id" => 23, "title" => "Hilos para uso textil", "description" => "Hilos para uso textil." ],
+        (object)[ "id" => 24, "title" => "Tejidos", "description" => "Tejidos y productos textiles no comprendidos en otras clases; ropa de cama y de mesa." ],
+        (object)[ "id" => 25, "title" => "Ropa, calzado y sombrerería", "description" => "Prendas de vestir, calzado y artículos de sombrerería." ],
+        (object)[ "id" => 26, "title" => "Encajes y bordados", "description" => "Encajes, bordados, cintas y cordones; botones, ganchos y ojetes, alfileres y agujas; flores artificiales." ],
+        (object)[ "id" => 27, "title" => "Alfombras y tapices", "description" => "Alfombras, felpudos, esteras, linóleos y otros revestimientos de suelos; tapices murales no de materias textiles." ],
+        (object)[ "id" => 28, "title" => "Juegos y juguetes", "description" => "Juegos, juguetes; artículos de gimnasia y deporte no comprendidos en otras clases; decoraciones para árboles de Navidad." ],
+        (object)[ "id" => 29, "title" => "Productos alimenticios", "description" => "Carne, pescado, aves y caza; extractos de carne; frutas y legumbres en conserva, congeladas, secas y cocidas; jaleas, mermeladas, compotas; huevos; leche y productos lácteos; aceites y grasas comestibles." ],
+        (object)[ "id" => 30, "title" => "Productos de panadería", "description" => "Café, té, cacao y sucedáneos del café; arroz; tapioca y sagú; harinas y preparaciones hechas de cereales; pan, pastelería y confitería; helados comestibles; azúcar, miel, jarabe de melaza; levadura, polvos de hornear; sal, mostaza; vinagre, salsas (condimentos); especias; hielo." ],
+        (object)[ "id" => 31, "title" => "Productos agrícolas y hortícolas", "description" => "Productos agrícolas, hortícolas, forestales y granos no comprendidos en otras clases; animales vivos; frutas y legumbres frescas; semillas, plantas y flores naturales; alimentos para animales; malta." ],
+        (object)[ "id" => 32, "title" => "Bebidas sin alcohol", "description" => "Cervezas; aguas minerales y gaseosas; bebidas no alcohólicas; zumos de frutas; siropes y otras preparaciones para elaborar bebidas." ],
+        (object)[ "id" => 33, "title" => "Bebidas alcohólicas", "description" => "Bebidas alcohólicas (excepto cervezas)." ],
+        (object)[ "id" => 34, "title" => "Tabaco", "description" => "Tabaco; artículos para fumadores; cerillas." ],
+        (object)[ "id" => 35, "title" => "Publicidad y gestión", "description" => "Publicidad; gestión de negocios comerciales; administración comercial; trabajos de oficina." ],
+        (object)[ "id" => 36, "title" => "Servicios financieros", "description" => "Seguros; operaciones financieras; operaciones monetarias; negocios inmobiliarios." ],
+        (object)[ "id" => 37, "title" => "Construcción y reparación", "description" => "Construcción; reparación; servicios de instalación." ],
+        (object)[ "id" => 38, "title" => "Telecomunicaciones", "description" => "Telecomunicaciones." ],
+        (object)[ "id" => 39, "title" => "Transporte y almacenamiento", "description" => "Transporte; embalaje y almacenamiento de mercancías; organización de viajes." ],
+        (object)[ "id" => 40, "title" => "Tratamiento de materiales", "description" => "Tratamiento de materiales." ],
+        (object)[ "id" => 41, "title" => "Educación y formación", "description" => "Educación; formación; servicios de entretenimiento; actividades deportivas y culturales." ],
+        (object)[ "id" => 42, "title" => "Servicios científicos y tecnológicos", "description" => "Servicios científicos y tecnológicos, así como servicios de investigación y diseño en estos ámbitos; servicios de análisis industrial y de investigación industrial; diseño y desarrollo de equipos informáticos y software." ],
+        (object)[ "id" => 43, "title" => "Servicios de restauración y hospedaje", "description" => "Servicios de restauración (alimentación); hospedaje temporal." ],
+        (object)[ "id" => 44, "title" => "Servicios médicos y agrícolas", "description" => "Servicios médicos y veterinarios; servicios de higiene y belleza; servicios agrícolas, hortícolas y silvícolas."],
+        (object)[ "id" => 45, "title" => "Servicios personales y legales", "description" => "Servicios jurídicos; seguridad para protección de bienes y personas; servicios personales y sociales prestados por terceros."]
+    ];
+}

@@ -506,13 +506,76 @@
     overviewChart.render();
   }
 
+  // Overview Chart
+  // --------------------------------------------------------------------
+  const overviewChartEl2 = document.querySelector('#overviewChart2'),
+    overviewChartConfig2 = {
+      chart: {
+        height: 134,
+        type: 'radialBar',
+        sparkline: {
+          enabled: true
+        }
+      },
+      plotOptions: {
+        radialBar: {
+          hollow: {
+            size: '55%'
+          },
+          dataLabels: {
+            name: {
+              show: false
+            },
+            value: {
+              show: true,
+              offsetY: 5,
+              fontWeight: 500,
+              fontSize: '1rem',
+              fontFamily: 'Inter',
+              color: headingColor
+            }
+          },
+          track: {
+            background: config.colors_label.secondary
+          }
+        }
+      },
+      states: {
+        hover: {
+          filter: {
+            type: 'none'
+          }
+        },
+        active: {
+          filter: {
+            type: 'none'
+          }
+        }
+      },
+      stroke: {
+        lineCap: 'round'
+      },
+      colors: [config.colors.primary],
+      grid: {
+        padding: {
+          bottom: -15
+        }
+      },
+      series: [82],
+      labels: ['Progress']
+    };
+  if (typeof overviewChartEl2 !== undefined && overviewChartEl2 !== null) {
+    const overviewChart2 = new ApexCharts(overviewChartEl2, overviewChartConfig2);
+    overviewChart2.render();
+  }
+
   // Sales Country Bar Chart
   // --------------------------------------------------------------------
   const salesCountryChartEl = document.querySelector('#salesCountryChart'),
     salesCountryChartConfig = {
       chart: {
         type: 'bar',
-        height: 368,
+        height: 180,
         parentHeightOffset: 0,
         toolbar: {
           show: false
@@ -520,14 +583,14 @@
       },
       series: [
         {
-          name: 'Sales',
-          data: [17165, 13850, 12375, 9567, 7880]
+          name: 'Total',
+          data: [2, 5, 10]
         }
       ],
       plotOptions: {
         bar: {
           borderRadius: 10,
-          barHeight: '60%',
+          barHeight: '80%',
           horizontal: true,
           distributed: true,
           startingShape: 'rounded',
@@ -548,7 +611,13 @@
         }
       },
       tooltip: {
-        enabled: false
+        y: {
+          title: {
+            formatter: function () {
+              return "Total: ";
+            }
+          }
+        }
       },
       legend: {
         show: false
@@ -573,10 +642,13 @@
         }
       },
       xaxis: {
-        categories: ['US', 'IN', 'JA', 'CA', 'AU'],
+        categories: ['Hoy', '3 Días', '7 Días'],
         labels: {
           formatter: function (val) {
-            return Number(val / 1000) + 'K';
+            if (val >= 1e9) return (val / 1e9).toFixed(1).replace(/\.0$/, '') + ' B';
+            if (val >= 1e6) return (val / 1e6).toFixed(1).replace(/\.0$/, '') + ' M';
+            if (val >= 1e3) return (val / 1e3).toFixed(1).replace(/\.0$/, '') + ' K';
+            return val.toLocaleString(); // 👉 si es menor a 1000, se muestra con separador de miles normal
           },
           style: {
             fontSize: '13px',
@@ -724,10 +796,10 @@
 
   // Visits By Day Bar Chart
   // --------------------------------------------------------------------
-  const visitsByDayChartEl = document.querySelector('#visitsByDayChart'),
+  const visitsByDayChartEl = document.querySelector('#visitsByDayChart-'),
     visitsByDayChartConfig = {
       chart: {
-        height: 238,
+        height: 150,
         type: 'bar',
         parentHeightOffset: 0,
         toolbar: {
@@ -736,7 +808,7 @@
       },
       plotOptions: {
         bar: {
-          borderRadius: 12,
+          borderRadius: 8,
           distributed: true,
           columnWidth: '55%',
           endingShape: 'rounded',
@@ -745,7 +817,7 @@
       },
       series: [
         {
-          data: [38, 55, 48, 65, 80, 38, 48]
+          data: [7, 5, 10, 8, 6]
         }
       ],
       tooltip: {
@@ -763,14 +835,20 @@
         config.colors_label.warning,
         config.colors.warning,
         config.colors.warning,
-        config.colors_label.warning,
-        config.colors_label.warning
       ],
+      tooltip: {
+        enabled: true,
+        x: {
+          formatter: function(_val, {dataPointIndex}){
+            return obtenerDiasSemana()[dataPointIndex];
+          }
+        }
+      },
       grid: {
-        show: false,
+        show: true,
         padding: {
           top: -15,
-          left: -7,
+          left: 7,
           right: -4
         }
       },
@@ -793,14 +871,14 @@
         axisBorder: {
           show: false
         },
-        categories: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        categories: obtenerDiasSemanaShort(),
         labels: {
           style: {
             colors: bodyColor
           }
         }
       },
-      yaxis: { show: false },
+      yaxis: { show: true },
       responsive: [
         {
           breakpoint: 1200,

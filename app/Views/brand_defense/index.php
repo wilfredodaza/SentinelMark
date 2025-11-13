@@ -40,47 +40,24 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12 col-lg-4">
             <div class="card h-100">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between">
-                        <h5 class="mb-1">Taza de éxito</h5>
+                <div class="card-header pb-xl-7">
+                    <div class="d-flex align-items-center mb-1 flex-wrap">
+                        <h5 class="mb-0 me-1">Cumplimiento de plazos (%)</h5>
+                        <p class="mb-0 text-success">32 / 50</p>
                     </div>
-                    <div class="d-flex align-items-center card-subtitle">
-                            <div class="me-2">Del 27 de junio al <?= formatDate(date('Y-m-d')) ?> </div>
-                    </div>
+                    <span class="d-block card-subtitle">Actuaciones enviadas antes de su vencimiento / total del periodo</span>
                 </div>
-                <div class="card-body d-flex justify-content-between flex-wrap gap-2">
-
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-success rounded">
-                            <i class="ri-shield-check-line ri-24px"></i>
-                            </div>
-                        </div>
-                        <div class="card-info">
-                            <h5 class="mb-0">458</h5>
-                            <p class="mb-0">Oposiciones favorables</p>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="avatar">
-                            <div class="avatar-initial bg-label-danger rounded">
-                            <i class="ri-close-circle-line ri-24px"></i>
-                            </div>
-                        </div>
-                        <div class="card-info">
-                            <h5 class="mb-0">587</h5>
-                            <p class="mb-0">Total Cerradas</p>
-                        </div>
-                    </div>
+                <div class="card-body pb-xl-8">
+                    <div id="overviewChart" class="d-flex align-items-center"></div>
                 </div>
             </div>
         </div>
+        <!--/ overview Radial chart -->
 
         <!-- Total Impression & Order Chart -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <!-- <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="card h-100">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
@@ -110,8 +87,6 @@
                                             <?= number_format((($activas * 100) / $count), 2, ',', '.') ?>
                                             <i class="fa-duotone fa-regular fa-percent"></i>
                                         </p>
-                                        
-                                        <!-- <div class="ri-arrow-down-s-line ri-20px"></div> -->
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +121,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!--/ Total Impression & Order Chart -->
 
         <!-- visits By Day Chart-->
@@ -154,12 +129,12 @@
             <div class="card h-100">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h5 class="mb-1">Oposiciones próximas a vencimiento</h5>
+                        <h5 class="mb-1">Litigios próximos a vencer</h5>
                     </div>
-                    <p class="mb-0 card-subtitle">Total: 254</p>
+                    <p class="mb-0 card-subtitle">Total: 36</p>
                 </div>
                 <div class="card-body">
-                    <div id="visitsByDayChart"></div>
+                    <div id="salesCountryChart"></div>
                     <!-- <div class="d-flex justify-content-between mt-4">
                     <div>
                         <h6 class="mb-0">Most Visited Day</h6>
@@ -175,6 +150,24 @@
             </div>
         </div>
         <!--/ visits By Day Chart-->
+
+        
+
+        <div class="col-md-6 col-sm-12 col-lg-4">
+            <div class="card h-100">
+                <div class="card-header pb-xl-7">
+                    <div class="d-flex align-items-center mb-1 flex-wrap">
+                        <h5 class="mb-0 me-1">Éxito en recursos (%)</h5>
+                        <p class="mb-0 text-success">41 / 50</p>
+                    </div>
+                    <span class="d-block card-subtitle">Recursos favorables / total resueltos</span>
+                </div>
+                <div class="card-body pb-xl-8">
+                    <div id="overviewChart2" class="d-flex align-items-center"></div>
+                </div>
+            </div>
+        </div>
+        <!--/ overview Radial chart -->
 
         <div class="col-md-12 col-xxl-12">
             <div class="card">
@@ -225,28 +218,28 @@
                                     <div id="accordionPopoutOne" class="accordion-collapse collapse" aria-labelledby="headingPopoutOne" data-bs-parent="#accordionPopout" style="">
                                         <div class="accordion-body">
                                             <div class="row">
-                                                
                                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                                     <div class="form-floating form-floating-outline">
-                                                        <select class="select2 form-select required" data-allow-clear="true" id="pais-filter" name="pais"  aria-describedby="paisHelp">
+                                                        <select class="select2 form-select required" data-allow-clear="true" id="tipo-filter" name="tipo"  aria-describedby="tipoHelp">
                                                             <option value=""></option>
-                                                            <option value="Registrada" selected>Co</option>
-                                                            <option value="En trámite">Br</option>
-                                                            <option value="Aprobada">Ec</option>
+                                                            <option value="Colombia">Requerimiento</option>
+                                                            <option value="Colombia">Recurso</option>
+                                                            <option value="Colombia">Litigio</option>
                                                         </select>
-                                                        <label for="pais-filter">Pais</label>
+                                                        <label for="tipo-filter">Tipo</label>
                                                     </div>
                 
-                                                    <div id="paisHelp" class="form-text"></div>
+                                                    <div id="tipoHelp" class="form-text"></div>
                                                 </div>
                                                 
                                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                                     <div class="form-floating form-floating-outline">
                                                         <select class="select2 form-select required" data-allow-clear="true" id="estado-filter" name="estado"  aria-describedby="estadoHelp">
                                                             <option value=""></option>
-                                                            <option value="Registrada">Activa</option>
-                                                            <option value="En trámite">En estudio</option>
-                                                            <option value="Aprobada">Enviada</option>
+                                                            <option value="Registrada">Pendiente</option>
+                                                            <option value="En trámite">En borrador</option>
+                                                            <option value="Aprobada">Enviado</option>
+                                                            <option value="Rechazada">En decisión</option>
                                                             <option value="Rechazada">Cerrado</option>
                                                         </select>
                                                         <label for="estado-filter">Estado</label>
@@ -259,18 +252,17 @@
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                                     <div class="form-floating form-floating-outline">
-                                                        <select class="select2 form-select required" data-allow-clear="true" id="tipo-filter" name="tipo"  aria-describedby="tipoHelp">
+                                                        <select class="select2 form-select required" data-allow-clear="true" id="pais-filter" name="pais"  aria-describedby="paisHelp">
                                                             <option value=""></option>
-                                                            <option value="Colombia">Absoluta</option>
-                                                            <option value="Colombia">Confusión</option>
-                                                            <option value="Colombia">Competencia desleal</option>
+                                                            <option value="Registrada">Co</option>
+                                                            <option value="En trámite">Br</option>
+                                                            <option value="Aprobada">Ec</option>
                                                         </select>
-                                                        <label for="tipo-filter">Tipo Causal</label>
+                                                        <label for="pais-filter">Pais</label>
                                                     </div>
                 
-                                                    <div id="tipoHelp" class="form-text"></div>
+                                                    <div id="paisHelp" class="form-text"></div>
                                                 </div>
-
                                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                                     <div class="form-floating form-floating-outline">
                                                         <select class="select2 form-select required" data-allow-clear="true" id="clasesNiza" name="clasesNiza" aria-describedby="clase-niza-Help" multiple>
@@ -279,7 +271,7 @@
                                                                 <option value="<?= $niza->id ?>"><?= $niza->id ?></option>
                                                             <?php endforeach ?>
                                                         </select>
-                                                        <label for="clasesNiza">Clases Niza</label>
+                                                        <label for="clasesNiza">Clases Niz</label>
                                                     </div>
 
                                                     <div id="clase-niza-Help" class="form-text"></div>
@@ -289,18 +281,28 @@
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                                     <div class="form-floating form-floating-outline">
-                                                        <select class="select2 form-select required" data-allow-clear="true" id="marcas" name="marcas" aria-describedby="marcas-Help">
+                                                        <select class="select2 form-select required" data-allow-clear="true" id="abogado-filter" name="abogado"  aria-describedby="abogadoHelp" multiple>
                                                             <option value=""></option>
-                                                            <?php foreach ($marcas as $key => $marca): ?>
-                                                                <option value="<?= $marca->id ?>"><?= $marca->nombre_corto ?></option>
-                                                            <?php endforeach ?>
+                                                            <option value="Registrada">Laura Gómez</option>
+                                                            <option value="En trámite">Carlos Perez</option>
+                                                            <option value="Aprobada">Sofia Ruiz</option>
                                                         </select>
-                                                        <label for="marcas">Marcas propias</label>
+                                                        <label for="abogado-filter">Abogado</label>
                                                     </div>
-
-                                                    <div id="marcas-Help" class="form-text"></div>
+                
+                                                    <div id="abogadoHelp" class="form-text"></div>
                                                 </div>
 
+                                                <div class="col-lg-6 col-md-12 col-sm-12 my-2">
+                                                    <div class="form-floating form-floating-outline">
+                                                        <input type="text" class="form-control date-input" id="date" value="" aria-describedby="dateHelp" placeholder="YYYY-MM-DD">
+                                                        <label for="date">Fecha solicitud</label>
+                                                    </div>                                    
+                                                    <div id="dateHelp" class="text-red"></div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="row">
                                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                                     <div class="form-floating form-floating-outline">
                                                         <select class="select2 form-select required" data-allow-clear="true" id="riesgo-filter" name="riesgo"  aria-describedby="riesgoHelp">
@@ -313,24 +315,6 @@
                                                     </div>
                 
                                                     <div id="riesgoHelp" class="form-text"></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12 col-sm-12 my-2">
-                                                    <div class="form-floating form-floating-outline">
-                                                        <input type="text" class="form-control date-input" id="date" value="" aria-describedby="dateHelp" placeholder="YYYY-MM-DD">
-                                                        <label for="date">Fecha inicio solicitud</label>
-                                                    </div>                                    
-                                                    <div id="dateHelp" class="text-red"></div>
-                                                </div>
-
-                                                <div class="col-lg-6 col-md-12 col-sm-12 my-2">
-                                                    <div class="form-floating form-floating-outline">
-                                                        <input type="text" class="form-control date-input" id="date-end" value="" aria-describedby="dateHelp" placeholder="YYYY-MM-DD">
-                                                        <label for="date-end">Fecha fin solicitud</label>
-                                                    </div>                                    
-                                                    <div id="dateHelp" class="text-red"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -366,11 +350,12 @@
     <script src="<?= base_url(['assets/vendor/libs/select2/select2.js']) ?>"></script>
     <script src="<?= base_url(['assets/js/app-ecommerce-dashboard.js?v='.getCommit()]) ?>"></script>
     <script src="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.js']) ?>"></script>
+    <script src="<?= base_url(['assets/js/dashboards-analytics.js']) ?>"></script>
     <?= $this->include('layouts/js_datatables') ?>
 
     <script>
         const info_page = <?= json_encode($data) ?>;
     </script>
 
-    <script src="<?= base_url(['master/js/trademark_protection/index.js?v='.getCommit()]) ?>"></script>
+    <script src="<?= base_url(['master/js/brand_defense/index.js?v='.getCommit()]) ?>"></script>
 <?= $this->endsection('javaScript') ?>
