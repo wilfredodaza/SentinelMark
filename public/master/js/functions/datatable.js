@@ -32,6 +32,19 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
         },
         // <"card-header flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>>
         columns,
+        columnDefs: [
+            {
+              // For Responsive
+              className: 'control',
+              orderable: false,
+              searchable: false,
+              responsivePriority: 2,
+              targets: 0,
+              render: function (data, type, full, meta) {
+                return '';
+              }
+            },
+          ],
         dom: 'r<"row"<"col-sm-12 col-md-6 mt-3 mt-md-0 d-flex justify-content-center justify-content-md-start align-items-center"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"<"card-header py-2 flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-0 pt-md-0"B>>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
@@ -41,9 +54,40 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
                 previous: '<i class="ri-arrow-left-s-line"></i>'
             }
         },
-        responsive: false,
-        scrollX: true,
-        scrollY: false,
+        responsive: {
+            details: {
+              display: $.fn.dataTable.Responsive.display.modal({
+                header: function (row) {
+                  var data = row.data();
+                  return '';
+                }
+              }),
+              type: 'column',
+              renderer: function (api, rowIdx, columns) {
+                var data = $.map(columns, function (col, i) {
+                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                    ? '<tr data-dt-row="' +
+                        col.rowIndex +
+                        '" data-dt-column="' +
+                        col.columnIndex +
+                        '">' +
+                        '<td>' +
+                        col.title +
+                        ':' +
+                        '</td> ' +
+                        '<td>' +
+                        col.data +
+                        '</td>' +
+                        '</tr>'
+                    : '';
+                }).join('');
+    
+                return data ? $('<table class="table"/><tbody />').append(data) : false;
+              }
+            }
+          },
+        // scrollX: true,
+        // scrollY: false,
         ordering: false,
         processing: true,
         serverSide: true,
@@ -61,27 +105,27 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
 
         },
         initComplete: async () => {
-            if(filter){
-                $('.filter').html(`
-                    <div class="col-sm-6 w-100">
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text cursor-pointer" id="filter-global-2"><i class="ri-menu-search-line"></i></span>
-                            <div class="form-floating form-floating-outline">
-                                <input type="text" id="filter-global" class="form-control" placeholder="" aria-describedby="password2-modern">
-                                <label for="filter-global">Buscador</label>
-                            </div>
-                        </div>
-                    </div>    
-                `)
-                let searchTimeout; // variable global para controlar el tiempo
+            // if(filter){
+            //     $('.filter').html(`
+            //         <div class="col-sm-6 w-100">
+            //             <div class="input-group input-group-merge">
+            //                 <span class="input-group-text cursor-pointer" id="filter-global-2"><i class="ri-menu-search-line"></i></span>
+            //                 <div class="form-floating form-floating-outline">
+            //                     <input type="text" id="filter-global" class="form-control" placeholder="" aria-describedby="password2-modern">
+            //                     <label for="filter-global">Buscador</label>
+            //                 </div>
+            //             </div>
+            //         </div>    
+            //     `)
+            //     let searchTimeout; // variable global para controlar el tiempo
 
-                $('#filter-global').on('keyup', function () {
-                    clearTimeout(searchTimeout); // limpia el tiempo anterior
+            //     $('#filter-global').on('keyup', function () {
+            //         clearTimeout(searchTimeout); // limpia el tiempo anterior
                     
-                    const value = this.value;
-                    table_datatable[0].search(value).draw();
-                });
-            }
+            //         const value = this.value;
+            //         table_datatable[0].search(value).draw();
+            //     });
+            // }
         },
 
 

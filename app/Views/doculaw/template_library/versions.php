@@ -41,17 +41,44 @@
         </div>
 
         <div class="col-md-12 col-xxl-12">
-            <div class="card">
-                <div class="d-flex align-items-end row">
-                    <div class="col-md-12">
-                        <div class="card-body py-0">
-                            <div class="col s12 card-datatable ">
-                                <table class="datatables-basic table table-bordered text-center h-100" id="table_datatable"></table>
-                            </div>
+
+            <?php foreach ($detail->history  as $key => $history): ?>
+
+                <div class="card px-5 py-3 mb-3">
+                    <div class="card-header py-0 pb-2 justify-content-between align-items-center border-bottom d-flex flex-wrap">
+                        
+                        <h5 class="card-action-title card-title mb-0">Verion x.y.z</h5>
+                        <div class="card-action-element">
+
+                            <button class="btn btn-primary waves-effect waves-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEditBrand" aria-controls="offcanvasEnd">
+                                <i class="ri-edit-line ri-14px me-1"></i>Rollback
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Cambios</th>
+                                        <th>Campo</th>
+                                        <th>Fecha</th>
+                                        <th>Usuario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><?= $history->diff ?></td>
+                                        <td><?= $history->field ?></td>
+                                        <td><?= $history->date ?></td>
+                                        <td>Wilfredo Daza</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endforeach ?>
         </div>
     </div>
 </div>

@@ -281,3 +281,13 @@ const obtenerDiasSemanaShort = () => {
   
   return resultado;
 };
+
+function enableClickCopy(selector) {
+  $(document).on('click', selector, function () {
+      let texto = $(this).text().trim();
+
+      navigator.clipboard.writeText(texto).then(() => {
+          alert('Texto copiado', 'Texto copiado con exito', 'success')
+      });
+  });
+}

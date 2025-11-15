@@ -498,7 +498,8 @@ function getBrandsDefenses(){
                 ]
             ],
             'events'   => [],
-            'adjunto'   => []
+            'adjunto'   => [],
+            'templates' => [1, 4]
         ],
         (object) [
             'id' => 2,
@@ -524,7 +525,8 @@ function getBrandsDefenses(){
                 ]
             ],
             'adjunto' => [],
-            'events' => []
+            'events' => [],
+            'templates' => [1, 2, 4]
         ],
         (object) [
             'id'    => 3,
@@ -540,7 +542,8 @@ function getBrandsDefenses(){
             'fecha_limite' => '2025-09-18',
             'abogado_asignado' => 'Sofía Ruiz',
             'observation'   => 'lorem ipsum',
-            'adjunto' => (object) [
+            'adjuntos' => [
+                (object) [
                     'id'    => 1,
                     'reference'  => '001',
                     'entidad' => 'NN',
@@ -551,6 +554,7 @@ function getBrandsDefenses(){
                     ],
                     'extracto'  => "NN",
                     'adjunto' => "https://www.turnerlibros.com/wp-content/uploads/2021/02/ejemplo.pdf"
+                ]
             ],
             'documents' => [
                 (object) [
@@ -614,7 +618,8 @@ function getBrandsDefenses(){
                     'tiempo' => 'Hoy',
                     'documento' => 'uploads/documentos/decision_final.pdf'
                 ],
-            ]
+            ],
+            'templates' => [1, 2, 3, 4]
         ]
     ];
 }
@@ -666,5 +671,434 @@ function getClasesNiza(){
         (object)[ "id" => 43, "title" => "Servicios de restauración y hospedaje", "description" => "Servicios de restauración (alimentación); hospedaje temporal." ],
         (object)[ "id" => 44, "title" => "Servicios médicos y agrícolas", "description" => "Servicios médicos y veterinarios; servicios de higiene y belleza; servicios agrícolas, hortícolas y silvícolas."],
         (object)[ "id" => 45, "title" => "Servicios personales y legales", "description" => "Servicios jurídicos; seguridad para protección de bienes y personas; servicios personales y sociales prestados por terceros."]
+    ];
+}
+
+function getCategoriesDoculaw(){
+    return [
+        (object) [
+            'id'            => 1,
+            'name'          => 'Oposiciones',
+            'examples'      => 'Absoluta, Confusión, Competencia desleal',
+            'notes'         => 'Contextualizadas por país/jurisdicción',
+            'icon'          => 'ri-git-pull-request-line',
+            'templates'     => [
+                (object) [
+                    'id'        => 1,
+                    'title'     => 'Oposición por causal absoluta',
+                    'use'       => 'Vicios de registrabilidad, descriptividad, genericidad',
+                    'state'     => 'Publicado',
+                    'comment'   => 'NN',
+                    'enlace'    => 'text.docx',
+                    'version'   => '2.2.0',
+                    'pais'      => 'CO',
+                    'text'      => '
+                        ----------------------------------------------------------
+                        INFORME SOBRE EL EXPEDIENTE N.º {{expediente.numero}}
+                        Marca: {{marca.nombre}}
+                        ----------------------------------------------------------
+
+                        {% if expediente.estado == "publicada" %}
+                        Estado del Trámite: Publicada para Oposición
+                        La marca {{marca.nombre}} se encuentra actualmente publicada para efectos de oposición conforme a los procedimientos administrativos vigentes.
+                        {% endif %}
+
+                        {% if expediente.estado == "en_tramite" %}
+                        Estado del Trámite: En Trámite
+                        La solicitud de registro para la marca {{marca.nombre}} se encuentra en etapa de examen de forma y/o fondo.
+                        {% endif %}
+
+                        {% if expediente.estado == "negada" %}
+                        Estado del Trámite: Negada
+                        La solicitud ha sido negada por la autoridad competente con fundamento en las causales: {{causal}}.
+                        {% endif %}
+
+                        {% if expediente.estado == "registrada" %}
+                        Estado del Trámite: Registrada
+                        La marca {{marca.nombre}} ha sido registrada exitosamente ante la Superintendencia de Industria y Comercio.
+                        {% endif %}
+
+                        ----------------------------------------------------------
+                        Clases Asociadas
+                        ----------------------------------------------------------
+
+                        {% if expediente.clases|length > 0 %}
+                        La marca solicitada se encuentra asociada a las siguientes clases:
+
+                        {% for clase in expediente.clases %}
+                        - Clase {{clase.numero}}: {{clase.descripcion}}
+                        {% endfor %}
+
+                        {% else %}
+                        No se registran clases asociadas al expediente.
+                        {% endif %}
+
+                        ----------------------------------------------------------
+                        Resumen
+                        ----------------------------------------------------------
+
+                        - Número del expediente: {{expediente.numero}}
+                        - Nombre de la marca: {{marca.nombre}}
+                        - Estado: {{expediente.estado}}
+                        - País: {{pais}}
+                        - Jurisdicción: {{jurisdiccion}}
+                        - Idioma: {{idioma}}
+                        - Causal(es): {{causal}}
+                        - Etiquetas: {{etiquetas}}
+
+                        {% if expediente.observaciones %}
+                        Observaciones adicionales:
+                        {{expediente.observaciones}}
+                        {% endif %}
+                    ',
+                    'prev'      => '
+                        ----------------------------------------------------------
+                        INFORME SOBRE EL EXPEDIENTE N.º SD2024-12345
+                        Marca: CAFÉ DORADO
+                        ----------------------------------------------------------
+
+                        Estado del Trámite: Publicada para Oposición
+                        La marca CAFÉ DORADO se encuentra actualmente publicada para efectos de oposición.
+
+                        Clases Asociadas:
+                        - Clase 5: Productos farmacéuticos
+                        - Clase 30: Café, té, cacao
+                    ',
+                    'history' => [
+                        (object) [
+                            'id'        => 1,
+                            'value_old' => '----------------------------------------------------------
+                                INFORME SOBRE EL EXPEDIENTE N.º {{expediente.numero}}
+                                Marca: {{marca.nombre}}
+                                ----------------------------------------------------------
+
+                                {% if expediente.estado == "publicada" %}
+                                Estado del Trámite: Publicada para Oposición
+                                La marca {{marca.nombre}} se encuentra actualmente publicada para efectos de oposición conforme a los procedimientos administrativos vigentes.
+                                {% endif %}
+
+                                {% if expediente.estado == "en_tramite" %}
+                                Estado del Trámite: En Trámite
+                                La solicitud de registro para la marca {{marca.nombre}} se encuentra en etapa de examen de forma y/o fondo.
+                                {% endif %}
+
+                                {% if expediente.estado == "negada" %}
+                                Estado del Trámite: Negada
+                                La solicitud ha sido negada por la autoridad competente con fundamento en las causales: {{causal}}.
+                                {% endif %}
+
+                                {% if expediente.estado == "registrada" %}
+                                Estado del Trámite: Registrada
+                                La marca {{marca.nombre}} ha sido registrada exitosamente ante la Superintendencia de Industria y Comercio.
+                                {% endif %}
+
+                                ----------------------------------------------------------
+                                Clases Asociadas
+                                ----------------------------------------------------------
+
+                                {% if expediente.clases|length > 0 %}
+                                La marca solicitada se encuentra asociada a las siguientes clases:
+
+                                {% for clase in expediente.clases %}
+                                - Clase {{clase.numero}}: {{clase.descripcion}}
+                                {% endfor %}
+
+                                {% else %}
+                                No se registran clases asociadas al expediente.
+                                {% endif %}
+
+                                ----------------------------------------------------------
+                                Resumen
+                                ----------------------------------------------------------
+
+                                - Número del expediente: {{expediente.numero}}
+                                - Nombre de la marca: {{marca.nombre}}
+                                - Estado: {{expediente.estado}}
+                                - País: {{pais}}
+                                - Jurisdicción: {{jurisdiccion}}
+                                - Idioma: {{idioma}}
+                                - Causal(es): {{causal}}
+                                - Etiquetas: {{etiquetas}}
+
+                                {% if expediente.observaciones %}
+                                Observaciones adicionales:
+                                {{expediente.observaciones}}
+                                {% endif %}
+                            ',
+                            'value_new' => '----------------------------------------------------------
+                                INFORME SOBRE EL EXPEDIENTE N.º {{expediente.numero}}
+                                Marca: -{{marca.nombre}}
+                                Abogado(a): {{abogado.nombre}}
+                                ----------------------------------------------------------
+
+                                {% if expediente.estado == "publicada" %}
+                                Estado del Trámite: Publicada para Oposición
+                                La marca {{marca.nombre}} se encuentra actualmente publicada para efectos de oposición conforme a los procedimientos administrativos vigentes.
+                                {% endif %}
+
+                                {% if expediente.estado == "en_tramite" %}
+                                Estado del Trámite: En Trámite
+                                La solicitud de registro para la marca {{marca.nombre}} se encuentra en etapa de examen de forma y/o fondo.
+                                {% endif %}
+
+                                {% if expediente.estado == "negada" %}
+                                Estado del Trámite: Negada
+                                La solicitud ha sido negada por la autoridad competente con fundamento en las causales: {{causal}}.
+                                {% endif %}
+
+                                {% if expediente.estado == "registrada" %}
+                                Estado del Trámite: Registrada
+                                La marca {{marca.nombre}} ha sido registrada exitosamente ante la Superintendencia de Industria y Comercio.
+                                {% endif %}
+
+                                ----------------------------------------------------------
+                                Clases Asociadas:
+                                ----------------------------------------------------------
+
+                                {% if expediente.clases|length > 0 %}
+                                La marca solicitada se encuentra asociada a las siguientes clases:
+
+                                {% for clase in expediente.clases %}
+                                - Clase {{clase.numero}}: {{clase.descripcion}}
+                                {% endfor %}
+
+                                {% else %}
+                                No se registran clases asociadas al expediente.
+                                {% endif %}
+
+                                ----------------------------------------------------------
+                                Resumen
+                                ----------------------------------------------------------
+
+                                - Número del expediente: {{expediente.numero}}
+                                - Nombre de la marca: {{marca.nombre}}
+                                - Estado: {{expediente.estado}}
+                                - País: {{pais}}
+                                - Jurisdicción: {{jurisdiccion}}
+                                - Idioma: {{idioma}}
+                                - Causal(es): {{causal}}
+                                - Etiquetas: {{etiquetas}}
+
+                                {% if expediente.observaciones %}
+                                Observaciones adicionales:
+                                {{expediente.observaciones}}
+                                {% endif %}
+                            ',
+                            'comment' => '',
+                            'field' => 'template',
+                            'date'  => '2025-11-14 16:23:04'
+                        ]
+                    ]
+                ],
+                (object) [
+                    'id'        => 2,
+                    'title'     => 'Oposición por confusión',
+                    'use'       => 'Comparativo denominativo/figurativo, canales de comercialización',
+                    'state'     => 'Publicado',
+                    'comment'   => 'NN',
+                    'enlace'    => 'text.docx',
+                    'pais'      => 'CO',
+                    'version'   => '3.0.0',
+                    'text'      => '',
+                    'prev'      => '
+                        ----------------------------------------------------------
+                        INFORME SOBRE EL EXPEDIENTE N.º SD2024-12345
+                        Marca: CAFÉ DORADO
+                        ----------------------------------------------------------
+
+                        Estado del Trámite: Publicada para Oposición
+                        La marca CAFÉ DORADO se encuentra actualmente publicada para efectos de oposición.
+
+                        Clases Asociadas:
+                        - Clase 5: Productos farmacéuticos
+                        - Clase 30: Café, té, cacao
+                    ',
+                    'history' => []
+                ],
+                (object) [
+                    'id'        => 3,
+                    'title'     => 'Competencia desleal',
+                    'use'       => 'Aprovechamiento de reputación ajena, desvío de clientela',
+                    'state'     => 'Publicado',
+                    'comment'   => 'NN',
+                    'enlace'    => 'text.docx',
+                    'pais'      => 'CO',
+                    'version'   => '1.0.0',
+                    'text'      => '',
+                    'prev'      => '
+                        ----------------------------------------------------------
+                        INFORME SOBRE EL EXPEDIENTE N.º SD2024-12345
+                        Marca: CAFÉ DORADO
+                        ----------------------------------------------------------
+
+                        Estado del Trámite: Publicada para Oposición
+                        La marca CAFÉ DORADO se encuentra actualmente publicada para efectos de oposición.
+
+                        Clases Asociadas:
+                        - Clase 5: Productos farmacéuticos
+                        - Clase 30: Café, té, cacao
+                    ',
+                    'history' => []
+                ],
+                (object) [
+                    'id'        => 4,
+                    'title'     => 'Recurso de reposición',
+                    'use'       => 'Contra decisiones desfavorables',
+                    'state'     => 'Publicado',
+                    'comment'   => 'NN',
+                    'enlace'    => 'text.docx',
+                    'pais'      => 'CO',
+                    'version'   => '1.5.0',
+                    'text'      => '',
+                    'prev'      => '
+                        ----------------------------------------------------------
+                        INFORME SOBRE EL EXPEDIENTE N.º SD2024-12345
+                        Marca: CAFÉ DORADO
+                        ----------------------------------------------------------
+
+                        Estado del Trámite: Publicada para Oposición
+                        La marca CAFÉ DORADO se encuentra actualmente publicada para efectos de oposición.
+
+                        Clases Asociadas:
+                        - Clase 5: Productos farmacéuticos
+                        - Clase 30: Café, té, cacao
+                    ',
+                    'history' => []
+                ]
+            ],
+            'diccionary'    => [
+                '{{marca.name}}', '{{expediente.numero}}'
+            ],
+        ],
+        (object) [
+            'id'        => 2,
+            'name'      => 'Requerimientos',
+            'examples'  => 'Forma, Fondo',
+            'notes'     => 'Asociadas a tipos de auto/oficio',
+            'icon'      => 'ri-list-check-2',
+            'templates' => [
+                (object) [
+                    'id'        => 1,
+                    'title'     => 'Oposición por causal absoluta',
+                    'use'       => 'Vicios de registrabilidad, descriptividad, genericidad',
+                    'state'     => 'Publicado',
+                    'comment'   => 'NN',
+                    'enlace'    => 'text.docx',
+                    'version'   => '2.2.0',
+                    'pais'      => 'CO',
+                    'text'      => '
+                        ----------------------------------------------------------
+                        INFORME SOBRE EL EXPEDIENTE N.º {{expediente.numero}}
+                        Marca: {{marca.nombre}}
+                        ----------------------------------------------------------
+
+                        {% if expediente.estado == "publicada" %}
+                        Estado del Trámite: Publicada para Oposición
+                        La marca {{marca.nombre}} se encuentra actualmente publicada para efectos de oposición conforme a los procedimientos administrativos vigentes.
+                        {% endif %}
+
+                        {% if expediente.estado == "en_tramite" %}
+                        Estado del Trámite: En Trámite
+                        La solicitud de registro para la marca {{marca.nombre}} se encuentra en etapa de examen de forma y/o fondo.
+                        {% endif %}
+
+                        {% if expediente.estado == "negada" %}
+                        Estado del Trámite: Negada
+                        La solicitud ha sido negada por la autoridad competente con fundamento en las causales: {{causal}}.
+                        {% endif %}
+
+                        {% if expediente.estado == "registrada" %}
+                        Estado del Trámite: Registrada
+                        La marca {{marca.nombre}} ha sido registrada exitosamente ante la Superintendencia de Industria y Comercio.
+                        {% endif %}
+
+                        ----------------------------------------------------------
+                        Clases Asociadas
+                        ----------------------------------------------------------
+
+                        {% if expediente.clases|length > 0 %}
+                        La marca solicitada se encuentra asociada a las siguientes clases:
+
+                        {% for clase in expediente.clases %}
+                        - Clase {{clase.numero}}: {{clase.descripcion}}
+                        {% endfor %}
+
+                        {% else %}
+                        No se registran clases asociadas al expediente.
+                        {% endif %}
+
+                        ----------------------------------------------------------
+                        Resumen
+                        ----------------------------------------------------------
+
+                        - Número del expediente: {{expediente.numero}}
+                        - Nombre de la marca: {{marca.nombre}}
+                        - Estado: {{expediente.estado}}
+                        - País: {{pais}}
+                        - Jurisdicción: {{jurisdiccion}}
+                        - Idioma: {{idioma}}
+                        - Causal(es): {{causal}}
+                        - Etiquetas: {{etiquetas}}
+
+                        {% if expediente.observaciones %}
+                        Observaciones adicionales:
+                        {{expediente.observaciones}}
+                        {% endif %}
+                    ',
+                    'prev'      => '
+                        ----------------------------------------------------------
+                        INFORME SOBRE EL EXPEDIENTE N.º SD2024-12345
+                        Marca: CAFÉ DORADO
+                        ----------------------------------------------------------
+
+                        Estado del Trámite: Publicada para Oposición
+                        La marca CAFÉ DORADO se encuentra actualmente publicada para efectos de oposición.
+
+                        Clases Asociadas:
+                        - Clase 5: Productos farmacéuticos
+                        - Clase 30: Café, té, cacao
+                    ',
+                    'history' => []
+                ],
+            ],
+            'diccionary' => []
+        ],
+        (object) [
+            'id'        => 3,
+            'name'      => 'Recursos',
+            'examples'  => 'Reposición, Apelación',
+            'notes'     => 'Flujos conectados a Defensa',
+            'icon'      => 'ri-bubble-chart-line',
+            'templates' => [],
+            'diccionary' => []
+        ],
+        (object) [
+            'id'        => 4,
+            'name'      => 'Litigios',
+            'examples'  => 'Nulidad, Infracción, Cancelación',
+            'notes'     => 'Modelos por hito procesal',
+            'icon'      => 'ri-git-close-pull-request-line',
+            'templates' => [],
+            'diccionary' => []
+        ],
+        (object) [
+            'id'        => 5,
+            'name'      => 'Varias',
+            'examples'  => 'Informes, memoriales, poderes',
+            'notes'     => 'Utilitarias',
+            'icon'      => 'ri-pencil-ruler-2-line',
+            'templates' => [],
+            'diccionary' => []
+        ]
+    ];
+}
+
+function getDocuLaws(){
+    return [
+        (object) [
+            'id'            => 1,
+            'template_id'   => 1,
+            'brand' => 3,
+        ]
     ];
 }

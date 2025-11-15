@@ -57,3 +57,6 @@
     height: auto !important;
     width: 100% !important;
 }
+
+del { background-color: #ffcccc; color: red; }
+ins { background-color: #ccffcc; color: green; }
