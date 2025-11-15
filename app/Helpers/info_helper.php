@@ -690,7 +690,7 @@ function getCategoriesDoculaw(){
                     'state'     => 'Publicado',
                     'comment'   => 'NN',
                     'enlace'    => 'text.docx',
-                    'version'   => '2.2.0',
+                    'version'   => '2.2.1',
                     'pais'      => 'CO',
                     'text'      => '
                         ----------------------------------------------------------
@@ -978,7 +978,7 @@ function getCategoriesDoculaw(){
             'icon'      => 'ri-list-check-2',
             'templates' => [
                 (object) [
-                    'id'        => 1,
+                    'id'        => 5,
                     'title'     => 'Oposición por causal absoluta',
                     'use'       => 'Vicios de registrabilidad, descriptividad, genericidad',
                     'state'     => 'Publicado',

@@ -42,7 +42,7 @@ $(() => {
                                     <i class="fa-duotone fa-solid fa-pen-to-square"></i> Editar
                                 </a></li>
 
-                                <li><a href="javascript:void(0);" onclick="historialDiff(${tablist.id}, ${res.id})" class="dropdown-item">
+                                <li><a href="${base_url(['dashboard/doculaw/template_library/versions', res.id])}" class="dropdown-item">
                                     <i class="fa-duotone fa-solid fa-clock-rotate-left"></i></i> Historial
                                 </a></li>
                                 
@@ -69,6 +69,7 @@ $(() => {
                   return new bootstrap.Tooltip(tooltipTriggerEl);
                 });    
             },
+            ordering: false,
             buttons: [
                 {
                     extend: 'collection',
