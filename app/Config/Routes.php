@@ -73,6 +73,18 @@ $routes->group('dashboard', function ($routes){
 		$routes->get('data', 'BrandDefenseController::getData');
 		$routes->get('(:num)', 'BrandDefenseController::detail/$1');
 	});
+
+	$routes->group('doculaw', function($routes){
+		$routes->group('template_library', function($routes){
+			$routes->get('', 'DocuLawController::index_template_library');
+			$routes->get('versions/(:num)', 'DocuLawController::view_versions/$1');
+		});
+
+		$routes->group('generate', function($routes){
+			$routes->get('', 'DocuLawController::index_generate');
+			$routes->get('data', 'DocuLawController::generate_data');
+		});
+	});
 });
 
 $routes->get('/login', 'AuthController::login');
