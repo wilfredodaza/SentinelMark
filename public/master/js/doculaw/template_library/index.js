@@ -42,16 +42,18 @@ $(() => {
                                     <i class="fa-duotone fa-solid fa-pen-to-square"></i> Editar
                                 </a></li>
 
-                                <li><a href="${base_url(['dashboard/doculaw/template_library/versions', res.id])}" class="dropdown-item">
-                                    <i class="fa-duotone fa-solid fa-clock-rotate-left"></i></i> Historial
+                                <li>
+                                <a href="javascript:void(0)" onclick="historialDiff(${tablist.id}, ${res.id})" class="dropdown-item">
+                                <i class="fa-duotone fa-solid fa-clock-rotate-left"></i></i> Historial
                                 </a></li>
                                 
                                 <li><a href="javascript:void(0);" onclick="decline(${res.id})" class="dropdown-item text-red">
-                                    <i class="fa-duotone fa-solid fa-circle-trash"></i> Eliminar
+                                <i class="fa-duotone fa-solid fa-circle-trash"></i> Eliminar
                                 </a></li>
-                            </ul>
-                        </div>
-                    `
+                                </ul>
+                                </div>
+                                `
+                                // <a href="${base_url(['dashboard/doculaw/template_library/versions', res.id])}" class="dropdown-item">
                 }},
             ],
             dom: '<"card-header flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6 mt-5 mt-md-0"><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
@@ -185,12 +187,19 @@ $(() => {
     tables[0] = $(`#table_datatable_history`).DataTable({
         data: [],
         columns: [
-            {title: 'Campo', data: 'field'},
+            // {title: 'Campo', data: 'field'},
             {title: 'Cambio', data: 'diff'},
             {title: 'Comentario', data: 'comment'},
             {title: 'Fecha de cambio', data: 'date'},
+            {title: 'Version', data: 'version'},
             {title: 'Acciones', data: 'enlace', render: (value, _, res) => {
-                return ``
+                return `
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a href="javascript:void(0);" onclick="rollback(${res.id})" class="btn btn-sm btn-text-secundary rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-secundary" data-bs-original-title="Realizar rollback">
+                            <i class="ri-arrow-go-back-line"></i>
+                        </a>
+                    </div>
+                `
             }},
         ],
         dom: '<"card-header flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6 mt-5 mt-md-0"><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
@@ -297,4 +306,34 @@ function historialDiff(id, id_template){
     const offCanvasElement = document.querySelector('#canvasHistoryDiff');
     let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
     offCanvasEl.show();
+}
+
+function rollback(id){
+
+    const histories = tables[0].rows().data().toArray();
+    const history = histories.find(h => h.id == id)
+
+    Swal.fire({
+        title: `Realizar rollback a la version ${history.version}`,
+        html: `Al momento de realizar el rollback se puede llegar a perder información.`,
+        showCancelButton: true,
+        confirmButtonText: "Realizar",
+        cancelButtonText: "Cancelar",
+        customClass: {
+            confirmButton: "btn btn-primary",
+            cancelButton: "btn btn-outline-danger"
+        },
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                icon: 'success',
+                title: `Registro actualizado.`,
+                showConfirmButton: true,
+                allowOutsideClick: false,
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            });
+        }
+    });
 }

@@ -7,6 +7,7 @@
     <?= $this->include('layouts/css_datatables') ?>
     <link rel="stylesheet" href="<?= base_url(['assets/vendor/libs/select2/select2.css']) ?>" />
     <link rel="stylesheet" href="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.css']) ?>" />
+    <link rel="stylesheet" href="<?= base_url(['assets/vendor/libs/dropzone/dropzone.css']) ?>" />
 <?= $this->endsection('styles') ?>
 
 <?= $this->section('content') ?>
@@ -153,9 +154,29 @@
                                         <div id="templateHelp" class="form-text"></div>
                                     </div>
 
+                                    <div class="col-lg-12 my-2" style="display:none" id="check-document">
+                                        <div class="form-check mt-4">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label class="form-check-label" for="defaultCheck1"> Descargar documento al finalizar </label>
+                                        </div>
+                                    </div>
+
                                 </div>
     
                             </form>
+
+                            
+
+                            <div class="col-lg-12 my-2" style="display:none" id="check-document-form">
+                                <form action="/upload" class="dropzone needsclick d-flex justify-content-center my-2 p-0" id="dropzone-basic-created">
+                                    <div class="dz-message needsclick m-0 py-5">
+                                        Arrastra el documento aquí o haz clic para subirlo.
+                                    </div>
+                                    <div class="fallback">
+                                    <input name="file" type="file" />
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     
                         
@@ -185,6 +206,7 @@
 <?= $this->section('javaScripts') ?>
     <script src="<?= base_url(['assets/vendor/libs/select2/select2.js']) ?>"></script>
     <script src="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.js']) ?>"></script>
+    <script src="<?= base_url(['assets/vendor/libs/dropzone/dropzone.js']) ?>"></script>
     <?= $this->include('layouts/js_datatables') ?>
 
     <script>

@@ -66,7 +66,10 @@ $(() => {
                 $('#tipo').val(null).trigger('change')
                 $('#template').val(null).trigger('change')
 
-                $('#canvasAddLabel').html('Añadir')
+                $('#canvasAddLabel').html('Añadir');
+
+                $('#check-document').show();
+                $('#check-document-form').hide();
 
                 let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
                 offCanvasEl.show();
@@ -103,7 +106,7 @@ function decline(){
         }
     });
 }
-
+let myDropzone; // declarar fuera para poder reutilizarla
 function editDocument(id){
     const documents = getDataDT();
     const info = documents.find(d => d.id == id);
@@ -118,6 +121,51 @@ function editDocument(id){
 
     $('#tipo').val(info.marca.id).trigger('change')
     $('#template').val(info.template_id).trigger('change')
+
+    $('#check-document').hide();
+    $('#check-document-form').show();
+
+    const dropzoneElement = document.querySelector('#dropzone-basic-created');
+    if (!dropzoneElement) return;
+
+    // Si ya existe una instancia previa, destruirla antes de crear una nueva
+    if (myDropzone) {
+        myDropzone.destroy();
+    }
+
+    myDropzone = new Dropzone(dropzoneElement, {
+        previewTemplate: previewTemplate(),
+        parallelUploads: 1,
+        maxFilesize: 5, // MB
+        addRemoveLinks: true,
+        maxFiles: 1,
+        autoProcessQueue: false, // evita subir automáticamente al abrir modal
+        init: function() {
+            const dz = this;
+
+            // Limitar a 1 archivo
+            dz.on("maxfilesexceeded", function(file) {
+                dz.removeAllFiles();
+                dz.addFile(file);
+            });
+
+            const existingFileUrl = base_url([`master/docs/Documento1.rtf`]); // URL de tu archivo actual
+            const existingFileName = `Documento1.rtf`; // Nombre del archivo
+
+            if (existingFileUrl) {
+                const mockFile = { 
+                    name: existingFileName, 
+                    size: 123456 // tamaño aproximado, no afecta la visualización
+                };
+
+                // Simula que el archivo ya fue subido
+                this.emit("addedfile", mockFile);
+                this.emit("thumbnail", mockFile, existingFileUrl);
+                this.emit("complete", mockFile);
+                this.files.push(mockFile); // Agrega al array interno de Dropzone
+            }
+        }
+    });
 
     let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
     offCanvasEl.show();

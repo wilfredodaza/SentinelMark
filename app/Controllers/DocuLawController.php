@@ -54,49 +54,51 @@ class DocuLawController extends BaseController
             foreach ($tablists->templates as $key => $templates) {
                 foreach ($templates->history as $key => $history) {
 
-                    $differ = new Differ("");
-                    $diff = $differ->diff($history->value_old, $history->value_new);
+                    // $differ = new Differ("");
+                    // $diff = $differ->diff($history->value_old, $history->value_new);
 
-                    // Separar líneas
-                    $lineas = explode("\n", $diff);
+                    // // 3. Filtrar solo líneas válidas
+                    // $lines = explode("\n", $diff);
+                    // $clean = [];
 
-                    $oldHighlighted = $history->value_old;
-                    $newHighlighted = $history->value_new;
+                    // foreach ($lines as $line) {
 
-                    // OLD: resaltar líneas eliminadas (-)
-                    foreach ($lineas as $line) {
-                        if (isset($line[0]) && $line[0] === '-') {
-                            $texto = substr($line, 1); // quitar "-"
-                            $textoEscapado = preg_quote($texto, '/');
+                    //     $trim = ltrim($line);
 
-                            // resaltar solo si aparece en el texto OLD
-                            $oldHighlighted = preg_replace(
-                                "/$textoEscapado/",
-                                "<span class='text-red' style='font-weight:bold;'>$0</span>",
-                                $oldHighlighted,
-                                1
-                            );
-                        }
-                    }
+                    //     // Mantener líneas válidas
+                    //     if (
+                    //         preg_match('/^\+/', $trim) ||              // líneas agregadas
+                    //         (preg_match('/^\-/', $trim) && !preg_match('/^\-+$/', $trim)) || // líneas eliminadas
+                    //         preg_match('/^\-+$/', trim($line))         // separadores -----
+                    //     ) {
+                    //         $clean[] = $line;
+                    //     }
+                    // }
 
-                    // NEW: resaltar líneas añadidas (+)
-                    foreach ($lineas as $line) {
-                        if (isset($line[0]) && $line[0] === '+') {
-                            $texto = substr($line, 1);
-                            $textoEscapado = preg_quote($texto, '/');
+                    // // Unir nuevamente
+                    // $diffHTML = implode("\n", $clean);
 
-                            // resaltar solo en el NUEVO texto
-                            $newHighlighted = preg_replace(
-                                "/$textoEscapado/",
-                                "<span class='text-green' style='font-weight:bold;'>$0</span>",
-                                $newHighlighted,
-                                1
-                            );
-                        }
-                    }
+                    // // 4. Convertir a HTML
+                    // $diffHTML = nl2br(htmlentities($diffHTML));
 
-                    $history->old_highlight = nl2br(htmlentities($oldHighlighted));
-                    $history->new_highlight = nl2br(htmlentities($newHighlighted));
+                    // // 5. Pintar en rojo (sin tocar -----)
+                    // $diffHTML = preg_replace(
+                    //     '/^-\s*(?!-+$)(.*)$/m',
+                    //     '<span class="text-red red lighten-5">-$1</span>',
+                    //     $diffHTML
+                    // );
+
+                    // // 6. Pintar en verde
+                    // $diffHTML = preg_replace(
+                    //     '/^\+\s*(.*)$/m',
+                    //     '<span class="text-green green lighten-5">+$1</span>',
+                    //     $diffHTML
+                    // );
+
+                    // // 7. Quitar <br> inicial si existe
+                    // $diffHTML = preg_replace('/^<br\s*\/>?/i', '', $diffHTML, 1);
+
+                    // $history->diff = $diffHTML;
 
                     // $diff = new Diff;
                     // $render = new Html;

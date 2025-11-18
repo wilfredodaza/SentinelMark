@@ -827,7 +827,7 @@ function getCategoriesDoculaw(){
                             ',
                             'value_new' => '----------------------------------------------------------
                                 INFORME SOBRE EL EXPEDIENTE N.º {{expediente.numero}}
-                                Marca: -{{marca.nombre}}
+                                Marca: {{marca.nombre}}
                                 Abogado(a): {{abogado.nombre}}
                                 ----------------------------------------------------------
 
@@ -886,7 +886,9 @@ function getCategoriesDoculaw(){
                             ',
                             'comment' => '',
                             'field' => 'template',
-                            'date'  => '2025-11-14 16:23:04'
+                            'date'  => '2025-11-14 16:23:04',
+                            'version'   => 'v1',
+                            'diff'  => 'Se cambia titulo de marca, se agrega abogado'
                         ]
                     ]
                 ],
