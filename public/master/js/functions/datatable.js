@@ -35,13 +35,13 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
         columnDefs: [
             {
               // For Responsive
-              className: 'control',
+              className: 'pointer',
               orderable: false,
               searchable: false,
-              responsivePriority: 2,
+            //   responsivePriority: 2,
               targets: 0,
               render: function (data, type, full, meta) {
-                return '';
+                return `<b class="pointer">${data}</b>`;
               }
             },
           ],

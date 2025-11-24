@@ -153,7 +153,7 @@
 
                             <div class="row">
                                 
-                            <div class="col-lg-6 col-md-12 col-sm-12 my-2">
+                                <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <div class="form-floating form-floating-outline">
                                         <select class="select2 form-select required" data-allow-clear="true" id="agente-add" name="agente-add" aria-describedby="estadoHelp">
                                             <option value=""></option>
