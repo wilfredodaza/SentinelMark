@@ -1104,3 +1104,350 @@ function getDocuLaws(){
         ]
     ];
 }
+
+function recordatorios(){
+    return [
+        (object) [
+            'id'    => 1,
+            'day'   => 15,
+            'text'  => 'Quincenal'
+        ],
+        (object) [
+            'id'    => 2,
+            'day'   => 7,
+            'text'  => 'Semanal'
+        ],
+        (object) [
+            'id'    => 3,
+            'day'   => 3,
+            'text'  => '3 días antes'
+        ],
+        (object) [
+            'id'    => 4,
+            'day'   => 1,
+            'text'  => 'Un dia antes'
+        ]
+    ];
+}
+
+function channels(){
+    return [
+        (object) [
+            'id'    => 1,
+            'name'  => 'WhatsApp',
+            'icon'  => 'ri-whatsapp-line',
+            'color' => 'teal-lighten-5',
+            'hour'  => '07:30 a.m'
+        ],
+        (object) [
+            'id'    => 2,
+            'name'  => 'Correo Electronico',
+            'icon'  => 'ri-google-fill',
+            'color' => 'orange-lighten-5',
+            'hour'  => '07:30 a.m'
+        ]
+    ];
+}
+
+function alerts(){
+    return [
+        (object) [
+            'id'                => 1,
+            'title'             => 'Evento #1',
+            'type'              => 1,
+            'brand'             => 5,
+            'country'           => 'Colombia',
+            'class'             => [5, 29, 32],
+            'reminders'         => [1, 3, 4],
+            'responsability'    => 'Laura Gómez',
+            'channels'          => [1, 2],
+            'description'       => 'Lorem Ipsum',
+            'attachments'       => [],
+            'limit'             => date('Y-m-d 00:00:00'),
+            'calendar'          => 'Business'
+        ],
+        (object) [
+            'id'                => 2,
+            'title'             => 'Evento #2',
+            'type'              => 1,
+            'brand'             => 5,
+            'country'           => 'Colombia',
+            'class'             => [5, 29, 32],
+            'reminders'         => [1, 3, 4],
+            'responsability'    => 'Laura Gómez',
+            'channels'          => [1, 2],
+            'description'       => 'Lorem Ipsum',
+            'attachments'       => [],
+            'limit'             => date('Y')."-".date('m') + 1 ."-04 00:00:00",
+            'calendar'          => 'Holiday'
+        ]
+    ];
+}
+
+function countries(){
+    return [
+        (object) [
+            'id'    => 1,
+            'name'  => 'Colombia',
+            'code'  => 'CO'
+        ],
+        (object) [
+            'id'    => 2,
+            'name'  => 'Argentina',
+            'code'  => 'AR'
+        ],
+        (object) [
+            'id'    => 3,
+            'name'  => 'Bolivia',
+            'code'  => 'BO'
+        ],
+        (object) [
+            'id'    => 4,
+            'name'  => 'Brasil',
+            'code'  => 'BR'
+        ],
+        (object) [
+            'id'    => 5,
+            'name'  => 'Chile',
+            'code'  => 'CL'
+        ],
+        (object) [
+            'id'    => 6,
+            'name'  => 'Ecuador',
+            'code'  => 'EC'
+        ],
+        (object) [
+            'id'    => 7,
+            'name'  => 'Guyana',
+            'code'  => 'GY'
+        ],
+        (object) [
+            'id'    => 8,
+            'name'  => 'Paraguay',
+            'code'  => 'PY'
+        ],
+        (object) [
+            'id'    => 9,
+            'name'  => 'Perú',
+            'code'  => 'PE'
+        ],
+        (object) [
+            'id'    => 10,
+            'name'  => 'Surinam',
+            'code'  => 'SR'
+        ],
+        (object) [
+            'id'    => 11,
+            'name'  => 'Uruguay',
+            'code'  => 'UY'
+        ],
+        (object) [
+            'id'    => 12,
+            'name'  => 'Venezuela',
+            'code'  => 'VE'
+        ]
+    ];
+}
+
+function modules(){
+    return [
+        (object) [
+            'id'    => 1,
+            'name'  => 'Protección'
+        ],
+        (object) [
+            'id'    => 2,
+            'name'  => 'Defensa'
+        ],
+        (object) [
+            'id'    => 3,
+            'name'  => 'AlertBoard'
+        ],
+    ];
+}
+
+function regulamarks(){
+    return [
+        (object) [
+            'id'            => 1,
+            'country_id'    => 1,
+            'code'          => 'COL_OPOS_30D',
+            'description'   => '',
+            'type'          => 'Plazo',
+            'entidad'       => 'SIC',
+            'origen'        => 'fecha_publicacion_gaceta',
+            'plazo'         => '+30 D',
+            'modulo'        => 1,
+            'state'         => 'Activa'
+        ],
+        (object) [
+            'id'            => 2,
+            'country_id'    => 5,
+            'code'          => 'CL_VIG_30D',
+            'description'   => '',
+            'type'          => 'Vigencia',
+            'entidad'       => 'OMPI',
+            'origen'        => 'fecha_publicacion_gaceta',
+            'plazo'         => '+30 D',
+            'modulo'        => 3,
+            'state'         => 'Inactiva    '
+        ]
+    ];
+}
+
+function regulamarks_history(){
+    return [
+        (object) [
+            'id'        => 1,
+            'date'      => date('Y-m-d H:i:s'),
+            'ruler'     => 2,
+            'country'   => 5,
+            'entity'    => 'Expediente',
+            'entity_id' => 1,
+            'origen'    => '2025-11-01 15:25:21',
+            'result'    => '2025-11-18 10:45:03',
+            'user'      => 'Wilfredo Daza',
+            'procces'   => 'Automatico'
+        ],
+        (object) [
+            'id'        => 2,
+            'date'      => date('Y-m-d H:i:s'),
+            'ruler'     => 1,
+            'country'   => 4,
+            'entity'    => 'Expediente',
+            'entity_id' => 2,
+            'origen'    => '2025-11-01 15:25:21',
+            'result'    => '2025-11-18 10:45:03',
+            'user'      => 'Wilfredo Daza',
+            'procces'   => 'Automatico'
+        ],
+        (object) [
+            'id'        => 3,
+            'date'      => date('Y-m-d H:i:s'),
+            'ruler'     => 1,
+            'country'   => 5,
+            'entity'    => 'Expediente',
+            'entity_id' => 1,
+            'origen'    => '2025-11-01 15:25:21',
+            'result'    => '2025-11-18 10:45:03',
+            'user'      => 'Wilfredo Daza',
+            'procces'   => 'Manual'
+        ]
+    ];
+}
+
+function vigiaMark(){
+    return [
+        (object) [
+            'id'    => 1,
+            'name'  => 'Vigia #1',
+            'tipo'  => 'Vigilar marca de mi portafolio',
+            'ambito'    => 1,
+            'state'     => 'Activa',
+            'last'      => '2025-10-25 09:00:00',
+            'next'      => '2025-11-25 09:00:00',
+            'hits'      => [
+                (object)  [
+                    'id'            => 1,
+                    'brand_id'      => 7,
+                    'brand'         => (object)[
+                        "id" => 7,
+                        "Marca" => "Vida Fresca Bebidas Naturales",
+                        "nombre_corto" => "VidaFresca",
+                        "País" => "Colombia",
+                        "Clase" => [32, 33],
+                        "Estado" => "Registrada",
+                        "Titular" => "Jugos del Campo SAS",
+                        "Expediente" => "EXP-007",
+                        "Fecha_Solicitud" => "2023-06-08",
+                        "Última_Actuación" => "2024-10-01",
+                        "Tipo" => "Mixta",
+                        "icon" => '<i class="fa-duotone fa-light fa-circle-m"></i>',
+                        "logo" => "5.png",
+                        "company_state" => (object)['id' => 1, 'title' => 'Activa', 'description' => 'La empresa está operando normalmente.'],
+                        "entity_state" => (object)['id' => 3, 'title' => 'Registrada', 'description' => 'La empresa fue suspendida temporalmente.'],
+                        "descripcion_comercial" => "Marca de jugos naturales y bebidas saludables sin conservantes.",
+                        "descripcion_abogado" => "Registro consolidado. Recomendado mantener uso comercial activo para evitar cancelación por falta de uso."
+                    ],
+                    'description'   => 'Coincidencia con la marca <b>Jugos naturales</b>',
+                    'umbral'        => 0.8
+                ]
+            ],
+            'responsable'   => 'Wilfredo Daza'
+        ],
+        (object) [
+            'id'    => 2,
+            'name'  => 'Vigia #2',
+            'tipo'  => 'Vigilar palabra / término',
+            'ambito'    => 1,
+            'state'     => 'En curso',
+            'last'      => '2025-10-25 09:00:00',
+            'next'      => '2025-11-25 09:00:00',
+            'hits'      => [
+                // (object)  [
+                //     'id'            => 1,
+                //     'brand_id'      => 7,
+                //     'description'   => 'Coincidencia con la marca <b>Jugos naturales</b>' 
+                // ]
+            ],
+            'responsable'   => 'Wilfredo Daza'
+        ],
+        (object) [
+            'id'    => 3,
+            'name'  => 'Vigia #3',
+            'tipo'  => 'Vigilar marcas de un titular',
+            'ambito'    => 1,
+            'state'     => 'Pausado',
+            'last'      => '2025-10-25 09:00:00',
+            'next'      => '2025-11-25 09:00:00',
+            'hits'      => [
+                // (object)  [
+                //     'id'            => 1,
+                //     'brand_id'      => 7,
+                //     'description'   => 'Coincidencia con la marca <b>Jugos naturales</b>' 
+                // ]
+            ],
+            'responsable'   => 'Wilfredo Daza'
+        ],
+        (object) [
+            'id'    => 4,
+            'name'  => 'Vigia #4',
+            'tipo'  => 'Vigilar marcas de un titular',
+            'ambito'    => 1,
+            'state'     => 'Activa',
+            'last'      => '2025-10-25 09:00:00',
+            'next'      => '2025-11-25 09:00:00',
+            'hits'      => [
+                // (object)  [
+                //     'id'            => 1,
+                //     'brand_id'      => 7,
+                //     'description'   => 'Coincidencia con la marca <b>Jugos naturales</b>' 
+                // ]
+            ],
+            'responsable'   => 'Wilfredo Daza'
+        ]
+    ];
+}
+
+function getGacetas(){
+    return [
+        (object)[
+            'id'        => 1,
+            'date'      => '2025-10-31',
+            'register'  => 867,
+            'state'     => 'Correcto'
+        ],
+        (object)[
+            'id'        => 2,
+            'date'      => '2025-09-30',
+            'register'  => 765,
+            'state'     => 'Error parcial'
+        ],
+        (object)[
+            'id'        => 3,
+            'date'      => '2025-08-31',
+            'register'  => 689,
+            'state'     => 'Error'
+        ]
+    ];
+}

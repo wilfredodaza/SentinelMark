@@ -85,6 +85,24 @@ $routes->group('dashboard', function ($routes){
 			$routes->get('data', 'DocuLawController::generate_data');
 		});
 	});
+
+	$routes->group('alertboard', function($routes){
+		$routes->get('', 'AlertBoardController::index');
+		$routes->get('data', 'AlertBoardController::getAlerts');
+		$routes->get('alerts', 'AlertBoardController::alerts');
+	});
+
+	$routes->group('regulamark', function($routes){
+		$routes->get('', 'RegulaMarkController::index');
+		$routes->get('data', 'RegulaMarkController::getData');
+		$routes->get('history', 'RegulaMarkController::history');
+		$routes->get('history/data', 'RegulaMarkController::historyData');
+	});
+
+	$routes->group('vigiamarca', function($routes){
+		$routes->get('', 'VigiaMarcaController::index');
+		$routes->get('data', 'VigiaMarcaController::data');
+	});
 });
 
 $routes->get('/login', 'AuthController::login');
