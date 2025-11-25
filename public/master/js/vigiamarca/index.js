@@ -71,7 +71,7 @@ $(() => {
                     <a href="javascript:void(0);" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-more-2-line"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end m-0" style="">
 
-                        <li><a href="javascript:void(0);" class="dropdown-item">
+                        <li><a href="javascript:void(0);" onclick="edit(${res.id})" class="dropdown-item">
                             <i class="fa-duotone fa-solid fa-pen-to-square"></i> Editar  
                         </a></li>
 
@@ -125,21 +125,34 @@ $(() => {
             className: `btn rounded-pill btn-primary waves-effect mx-2 mt-2 btn-add`,
             action: async function (e, dt, button, config) {
                 
-                $('#canvasAddLabel').html('Añadir');
+                $('#form-search').html('Añadir busqueda nueva')
 
-                $('#pais-add').val(null).trigger('change');
-                $('#code-add').val(null);
-                $('#code-add').attr('readonly', false);
-                $('#description').val(null);
-                $('#tipo').val(null).trigger('change');
-                $('#entidad').val(null).trigger('change');
-                $('#origen').val(null);
-                $('#plazo').val(null);
-                $('#modulo-add').val(null).trigger('change');
+                const info = {
+                    name: null,
+                    tipo: null,
+                    ambito: 1,
+                    niza: [],
+                    propietario: null,
+                    tipo_signo: null,
+                    check_fonetica: false,
+                    check_difusa: false,
+                    check_semantica: false,
+                    check_figurativa: false,
+                    frecuencia: 'Cada vez que haya nueva Gaceta SIC',
+                    flatpickr_time: null,
+                    responsable: null,
+                    defaultCheck1: false
+                }
+                
+                loadData(info);
 
-                const offCanvasElement = document.querySelector('#canvasAdd');
-                let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
-                offCanvasEl.show();
+                let trigger = document.querySelector('[data-bs-target="#navs-pills-add"]');
+                let tab = new bootstrap.Tab(trigger);
+                tab.show();
+
+                // const offCanvasElement = document.querySelector('#canvasAdd');
+                // let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
+                // offCanvasEl.show();
             }
         }
     ];
@@ -164,8 +177,7 @@ $(() => {
                 </div>
             ` }
         ],
-        dom: '<"card-header flex-column flex-md-row border-bottom"<"head-label title-tabla-2 text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6 mt-5 mt-md-0"><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-        lengthMenu: [10, 25, 50, 75, 100],
+        dom: 'r<"row"<"col-sm-12 col-md-12 col-lg-4 mt-3 mt-md-0 d-flex justify-content-center justify-content-lg-start justify-content-md-center align-items-center"l><"col-sm-12 col-md-12 col-lg-8 d-flex justify-content-center justify-content-lg-end justify-content-md-center align-items-center"<"dt-action-buttons text-end pt-0 pt-md-0"B>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
             processing: 'Cargando datos',
@@ -174,6 +186,7 @@ $(() => {
                 previous: '<i class="ri-arrow-left-s-line"></i>'
             }
         },
+        lengthMenu: [10, 25, 50, 75, 100],
         drawCallback: async function(setting){
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -349,8 +362,6 @@ $(() => {
 
 })
 
-
-
 function decline(state){
 
     Swal.fire({
@@ -378,28 +389,16 @@ function decline(state){
 }
 
 function edit(id){
-    const rules = getDataDT();
-    const ruler = rules.find(r => r.id == id);
-    
-    $('#pais-add').val(ruler.country.id).trigger('change');
-    $('#code-add').val(ruler.code);
-    $('#description').val(ruler.description);
-    $('#tipo').val(ruler.type).trigger('change');
-    $('#entidad').val(ruler.entidad).trigger('change');
-    $('#origen').val(ruler.origen);
-    $('#plazo').val(ruler.plazo);
-    $('#modulo-add').val(ruler.module.id).trigger('change');
+    const vigias = getDataDT();
+    const vigia = vigias.find(r => r.id == id);
 
+    $('#form-search').html('Editar busqueda')
     
-    $('#code-add').attr('readonly', true);
-    
-    const offCanvasElement = document.querySelector('#canvasAdd');
-    
-    $('#canvasAddLabel').html('Editar')
-    
-    let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
-    offCanvasEl.show();
-    console.log(ruler)
+    loadData(vigia);
+
+    let trigger = document.querySelector('[data-bs-target="#navs-pills-add"]');
+    let tab = new bootstrap.Tab(trigger);
+    tab.show();
 }
 
 function verHallazgos(id){
@@ -408,15 +407,28 @@ function verHallazgos(id){
 
     const offCanvasElement = document.querySelector('#canvasHallazgos');
 
-    $('#canvasHallazgos table tbody').html(`
+    $('#table_findigns tbody').html(`
         ${
             vigiamarca.hits.reduce((acc, hit) => {
                 const tr = `
                     <tr>
                         <td>${hit.id}</td>
                         <td>${hit.brand.Marca}</td>
-                        <td>${hit.description}</td>
-                        <td>${hit.umbral}</td>
+                        <td>Coincidencia con la marca <b>${hit.brand_reference.nombre_corto}</b></td>
+                        <td>${hit.brand_reference.Titular}</td>
+                        <td>${hit.termino_vigilado}</td>
+                        <td>
+                            <div class="progress" style="height: 15px">
+                                <div class="progress-bar" role="progressbar" style="width: ${Math.round(hit.umbral * 100)}%" aria-valuenow="${Math.round(hit.umbral * 100)}" aria-valuemin="0" aria-valuemax="100">
+                                    ${Math.round(hit.umbral * 100)}%
+                                </div>
+                            </div>
+                        </td>
+                        <td>${hit.tipo_similitud}</td>
+                        <td>${hit.niza}</td>
+                        <td>${hit.ambito.name}</td>
+                        <td>${hit.gaceta.date}</td>
+                        <td>${hit.state}</td>
                         <td>
                             <div class="d-flex justify-content-center align-items-center">
                                 <a href="javascript:void(0)" onclick="changeHit(${vigiamarca.id}, ${hit.id}, 1)" class="btn btn-sm btn-text-success rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-success" data-bs-original-title="Aceptar hit">
@@ -446,9 +458,13 @@ function verHallazgos(id){
     document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
         new bootstrap.Tooltip(el);
     });
+
+    let trigger = document.querySelector('[data-bs-target="#navs-pills-findings"]');
+    let tab = new bootstrap.Tab(trigger);
+    tab.show();
     
-    let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
-    offCanvasEl.show();
+    // let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
+    // offCanvasEl.show();
 }
 
 function changeHit(vigiamarca, id, state){
@@ -529,4 +545,60 @@ function changeHit(vigiamarca, id, state){
     }
 
     // verHallazgos(vigiamarca)
+}
+
+function cancelAdd(){
+    let trigger = document.querySelector('[data-bs-target="#navs-pills-detail-1"]');
+    let tab = new bootstrap.Tab(trigger);
+    tab.show();
+}
+
+function loadData(data){
+
+
+
+    $('#name-add').val(data.name ?? null)
+    $('#tipo').val(data.tipo ?? null).trigger('change')
+    $('#pais-add').val(data.ambito ?? null).trigger('change')
+    $('#base-add').val(data.base_add ?? null)
+    $('#niza').val(data.niza ?? []).trigger('change')
+    $('#propietario').val(data.propietario ?? null).trigger('change')
+    $('#tipo_signo').val(data.tipo_signo ?? null).trigger('change')
+
+    $('#check_fonetica')
+        .attr('checked', data.check_fonetica ?? false)
+        .trigger('change');
+    $('#fonetica').val(data.fonetica ?? null).trigger('change')
+
+    $('#check_difusa')
+        .attr('checked', data.check_difusa ?? false)
+        .trigger('change');
+
+    $('#check_difusa').val(data.check_difusa ?? null).trigger('change')
+    $('#fuzzy').val(data.fonetica ?? null)
+
+    $('#check_semantica')
+        .attr('checked', data.check_semantica ?? false)
+        .trigger('change');
+
+    $('#check_figurativa')
+        .attr('checked', data.check_figurativa ?? false)
+        .trigger('change');
+
+    $('#frecuencia').val(data.frecuencia ?? 'Cada vez que haya nueva Gaceta SIC').trigger('change')
+    $('#flatpickr-time').val(data.flatpickr_time ?? null);
+    $('#responsable').val(data.frecuencia ?? null).trigger('change');
+    $('#defaultCheck1').val(data.defaultCheck1 ?? null);
+
+    if(data.check_fonetica){
+        $('#fonetica').attr('disabled', false);
+    }else{
+        $('#fonetica').attr('disabled', true);
+    }
+
+    if(data.check_difusa){
+        $('#fuzzy').attr('disabled', false);
+    }else{
+        $('#fuzzy').attr('disabled', true);
+    }
 }
