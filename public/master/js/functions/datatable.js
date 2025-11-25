@@ -45,7 +45,7 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
               }
             },
           ],
-        dom: 'r<"row"<"col-sm-12 col-md-6 mt-3 mt-md-0 d-flex justify-content-center justify-content-md-start align-items-center"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"<"card-header py-2 flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-0 pt-md-0"B>>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+        dom: 'r<"row"<"col-sm-12 col-md-12 col-lg-4 mt-3 mt-md-0 d-flex justify-content-center justify-content-lg-start justify-content-md-center align-items-center"l><"col-sm-12 col-md-12 col-lg-8 d-flex justify-content-center justify-content-lg-end justify-content-md-center align-items-center"<"dt-action-buttons text-end pt-0 pt-md-0"B>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
             processing: 'Cargando datos',

@@ -1350,27 +1350,97 @@ function vigiaMark(){
                 (object)  [
                     'id'            => 1,
                     'brand_id'      => 7,
-                    'brand'         => (object)[
-                        "id" => 7,
-                        "Marca" => "Vida Fresca Bebidas Naturales",
-                        "nombre_corto" => "VidaFresca",
-                        "País" => "Colombia",
-                        "Clase" => [32, 33],
-                        "Estado" => "Registrada",
-                        "Titular" => "Jugos del Campo SAS",
-                        "Expediente" => "EXP-007",
-                        "Fecha_Solicitud" => "2023-06-08",
-                        "Última_Actuación" => "2024-10-01",
-                        "Tipo" => "Mixta",
-                        "icon" => '<i class="fa-duotone fa-light fa-circle-m"></i>',
-                        "logo" => "5.png",
-                        "company_state" => (object)['id' => 1, 'title' => 'Activa', 'description' => 'La empresa está operando normalmente.'],
-                        "entity_state" => (object)['id' => 3, 'title' => 'Registrada', 'description' => 'La empresa fue suspendida temporalmente.'],
-                        "descripcion_comercial" => "Marca de jugos naturales y bebidas saludables sin conservantes.",
-                        "descripcion_abogado" => "Registro consolidado. Recomendado mantener uso comercial activo para evitar cancelación por falta de uso."
-                    ],
-                    'description'   => 'Coincidencia con la marca <b>Jugos naturales</b>',
-                    'umbral'        => 0.8
+                    'brand'         => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 7;
+                    }))[0] ?? null,
+
+                    'brand_reference_id'    => 15,
+                    'brand_reference'       => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 15;
+                    }))[0] ?? null,                    
+                    'umbral'        => 0.74,
+                    'termino_vigilado'  => 'Vigilar palabra / término',
+                    'tipo_similitud'    => 'Figurativa',
+                    'niza'              => [15, 25, 33],
+                    'ambito'            => array_values(array_filter(countries(), function($item) {
+                        return $item->id == 3;
+                    }))[0] ?? null,
+                    'gaceta'            => array_values(array_filter(getGacetas(), function($item) {
+                        return $item->id == 1;
+                    }))[0] ?? null,
+                    'state'             => 'En oposición'
+                ],
+                (object)  [
+                    'id'            => 2,
+                    'brand_id'      => 9,
+                    'brand'         => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 9;
+                    }))[0] ?? null,
+
+                    'brand_reference_id'    => 5,
+                    'brand_reference'       => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 5;
+                    }))[0] ?? null,                    
+                    'umbral'        => 0.45,
+                    
+                    'termino_vigilado'  => 'Vigilar marcas de un titular',
+                    'tipo_similitud'    => 'Semántica',
+
+                    'niza'              => [15, 25, 33],
+                    'ambito'            => array_values(array_filter(countries(), function($item) {
+                        return $item->id == 1;
+                    }))[0] ?? null,
+                    'gaceta'            => array_values(array_filter(getGacetas(), function($item) {
+                        return $item->id == 1;
+                    }))[0] ?? null,
+                    'state'             => 'Descartado'
+                ],
+                (object)  [
+                    'id'            => 3,
+                    'brand_id'      => 10,
+                    'brand'         => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 10;
+                    }))[0] ?? null,
+
+                    'brand_reference_id'    => 2,
+                    'brand_reference'       => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 2;
+                    }))[0] ?? null,                    
+                    'umbral'        => 0.95,
+                    'termino_vigilado'  => 'Vigilar marca de mi portafolio',
+                    'tipo_similitud'    => 'Fuzzy',
+                    
+                    'niza'              => [15, 25, 33],
+                    'ambito'            => array_values(array_filter(countries(), function($item) {
+                        return $item->id == 6;
+                    }))[0] ?? null,
+                    'gaceta'            => array_values(array_filter(getGacetas(), function($item) {
+                        return $item->id == 1;
+                    }))[0] ?? null,
+                    'state'             => 'Marcado como relevante'
+                ],
+                (object)  [
+                    'id'            => 4,
+                    'brand_id'      => 8,
+                    'brand'         => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 8;
+                    }))[0] ?? null,
+
+                    'brand_reference_id'    => 6,
+                    'brand_reference'       => array_values(array_filter(getBrands(), function($item) {
+                        return $item->id == 6;
+                    }))[0] ?? null,                    
+                    'umbral'        => 0.55,
+                    'termino_vigilado'  => 'Vigilar marca de mi portafolio',
+                    'tipo_similitud'    => 'Fonética',
+                    'niza'              => [15, 25, 33],
+                    'ambito'            => array_values(array_filter(countries(), function($item) {
+                        return $item->id == 6;
+                    }))[0] ?? null,
+                    'gaceta'            => array_values(array_filter(getGacetas(), function($item) {
+                        return $item->id == 1;
+                    }))[0] ?? null,
+                    'state'             => 'Nuevo'
                 ]
             ],
             'responsable'   => 'Wilfredo Daza'

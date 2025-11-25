@@ -72,3 +72,7 @@ ins { background-color: #ccffcc; color: green; }
 .input-group.no-wrap{
     flex-wrap: inherit !important;
 }
+.bg-none{
+    background: transparent !important;
+    box-shadow: none !important;
+}
