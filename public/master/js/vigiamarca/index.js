@@ -565,6 +565,12 @@ function verHallazgos(id){
     // offCanvasEl.show();
 }
 
+function backVigencia(){
+    let trigger = document.querySelector('[data-bs-target="#navs-pills-detail-1"]');
+    let tab = new bootstrap.Tab(trigger);
+    tab.show();
+}
+
 function changeHit(vigiamarca, id, state){
 
     // setTimeout(() => {

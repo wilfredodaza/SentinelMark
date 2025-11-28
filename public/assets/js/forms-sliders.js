@@ -8,6 +8,7 @@
     sliderHandles = document.getElementById('slider-handles'),
     sliderHandles2 = document.getElementById('slider-handles-2'),
     sliderHandles3 = document.getElementById('slider-handles-3'),
+    sliderHandlesFilter = document.getElementById('slider-handles-filter'),
     sliderSteps = document.getElementById('slider-steps'),
     sliderTap = document.getElementById('slider-tap'),
     sliderDrag = document.getElementById('slider-drag'),
@@ -92,6 +93,34 @@
   if (sliderHandles3) {
     noUiSlider.create(sliderHandles3, {
       start: [0.7],
+      direction: isRtl ? 'rtl' : 'ltr',
+      step: 0.1,
+      connect: [true, false],
+      range: {
+        min: 0,
+        max: 1
+      },
+      format: {
+        to: v => parseFloat(v).toFixed(1),
+        from: v => parseFloat(v)
+      },
+      // tooltips: {
+      //   to: v => parseFloat(v).toFixed(1)
+      // },
+      pips: {
+        mode: 'steps',
+        stepped: true,
+        density: 10,
+        format: {
+          to: v => v.toFixed(1)
+        }
+      }
+    });
+  }
+
+  if (sliderHandlesFilter) {
+    noUiSlider.create(sliderHandlesFilter, {
+      start: [0],
       direction: isRtl ? 'rtl' : 'ltr',
       step: 0.1,
       connect: [true, false],

@@ -277,11 +277,11 @@
                                                 <div class="input-group-text form-check mb-0">
                                                     <input class="form-check-input m-auto" id="check_semantica" type="checkbox" value="" aria-label="Checkbox for following text input">
                                                 </div>
-                                                    <div class="w-100 border px-5">
-                                                        <small class="text-light fw-medium">Activar similitud semántica</small>
-                                                        <div id="slider-handles" class="mt-2 mb-12"></div>
-                                                        <small class="text-light fw-low">Umbral de similitud (0-1, con sugerencia: 0.7)</small>
-                                                    </div>
+                                                <div class="w-100 border px-5">
+                                                    <small class="text-light fw-medium">Activar similitud semántica</small>
+                                                    <div id="slider-handles" class="mt-2 mb-12"></div>
+                                                    <small class="text-light fw-low">Umbral de similitud (0-1, con sugerencia: 0.7)</small>
+                                                </div>
                                             </div>
                                         </div>
             
@@ -410,10 +410,20 @@
 
                     <div class="tab-pane fade card-action" id="navs-pills-findings" role="tabpanel">
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title my-0 w-100" id="form-search">
+                            <div class="card-header py-2 align-items-center border-bottom d-flex flex-wrap">
+                                <h5 class="card-action-title card-title my-0" id="form-search">
                                     Hallazgos encontrados
                                 </h5>
+
+                                <div class="card-action-element">
+                                    <button class="btn btn-label-info waves-effect waves-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasFilterHallazgo" aria-controls="offcanvasEnd">
+                                        <i class="ri-filter-3-line"></i><span class="d-none d-sm-inline-block">Filtrar</span>
+                                    </button>
+
+                                    <button class="btn btn-primary waves-effect waves-light" onclick="backVigencia()" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEditBrand" aria-controls="offcanvasEnd">
+                                        <i class="ri-menu-search-line ri-14px me-1"></i>Regresar
+                                    </button>
+                                </div>
                             </div>
                             <!-- <div class="card-body">
                                 <div class="table-responsive text-nowrap">
@@ -586,6 +596,93 @@
                                                     </div>
                                                     <div id="responsablefilterHelp" class="form-text"></div>
                                                 </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                        
+                        <div class="d-flex align-items-start mt-4">
+                            <button
+                                type="submit"
+                                class="btn btn-primary d-grid mx-4"
+                                data-bs-dismiss="offcanvas">
+                                Filtrar
+                                </button>
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary d-grid"
+                                data-bs-dismiss="offcanvas">
+                                Cancelar
+                                </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-lg-8 col-md-12 col-sm-12"><!--  Filtro Hallazgo -->
+                
+                <div
+                    class="offcanvas offcanvas-end width-add"
+                    tabindex="-2"
+                    id="canvasFilterHallazgo"
+                    aria-labelledby="canvasFilterHallazgoLabel">
+                    <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+                        <form action="" id="form-filter">
+
+                            <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0">
+                                <div class="app-academy-md-50 card-body d-flex align-items-md-center flex-column text-md-center mb-6 py-0">
+                                    <span class="card-title mb-4 lh-lg px-md-12 h4 text-heading">
+                                        Busca <span class="text-primary text-nowrap">todo en un mismo lugar</span>.
+                                    </span>
+                                    <div class="d-flex align-items-center justify-content-between app-academy-md-80 w-100">
+                                        <input type="search" placeholder="Realice tu busqueda" class="form-control form-control-sm me-4">
+                                        <button type="submit" class="btn btn-primary btn-icon waves-effect waves-light">
+                                            <i class="ri-search-line ri-22px"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion accordion-popout" id="accordionPopout">
+                                <div class="accordion-item mx-0">
+                                    <h2 class="accordion-header" id="headingPopoutOne">
+                                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionPopoutOne" aria-expanded="false" aria-controls="accordionPopoutOne">
+                                            Busqueda especifica
+                                        </button>
+                                    </h2>
+
+                                    <div id="accordionPopoutOne" class="accordion-collapse collapse" aria-labelledby="headingPopoutOne" data-bs-parent="#accordionPopout" style="">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                
+                                                <small class="text-light fw-medium">Activar similitud semántica</small>
+                                                <div id="slider-handles-filter" class="mt-2 mb-12"></div>
+
+                                                <div class="col-12">
+                                                    <div class="form-check mt-4">
+                                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                                        <label class="form-check-label" for="defaultCheck1"> Solo Alto riesgo (>=0.8) </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-check mt-4">
+                                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                                        <label class="form-check-label" for="defaultCheck2"> >=0.7 en fonética o semántica </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-check mt-4">
+                                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                                                        <label class="form-check-label" for="defaultCheck3"> Solo figurativas con score >=0.75 </label>
+                                                    </div>
+                                                </div>
+
 
                                             </div>
                                         </div>
