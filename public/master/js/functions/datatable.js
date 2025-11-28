@@ -132,7 +132,7 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
         buttons: [
             {
                 extend: 'collection',
-                className: 'btn rounded-pill btn-label-primary waves-effect mx-2 mt-2 dropdown-toggle',
+                className: 'btn rounded-pill btn-label-primary waves-effect mx-2 my-2 dropdown-toggle',
                 text: '<i class="ri-external-link-line me-sm-1"></i> <span class="d-none d-sm-inline-block">Reportes</span>',
                 buttons: default_buttons()
             },
