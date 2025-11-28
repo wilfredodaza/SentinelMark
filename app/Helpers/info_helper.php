@@ -99,8 +99,8 @@ function getBrands(){
         ],
         (object)[
             "id" => 6,
-            "Marca" => "Solar Tech Renewables",
-            "nombre_corto" => "SolarTech",
+            "Marca" => "MAWII",
+            "nombre_corto" => "Mawii",
             "País" => "España",
             "Clase" => [9, 11, 37],
             "Estado" => "En revisión",
@@ -137,10 +137,10 @@ function getBrands(){
         ],
         (object)[
             "id" => 8,
-            "Marca" => "Moto Rápido Delivery Service",
-            "nombre_corto" => "MotoRapido",
+            "Marca" => "MAWIL",
+            "nombre_corto" => "Mawil",
             "País" => "Brasil",
-            "Clase" => [12, 39, 42],
+            "Clase" => [9, 12, 37, 42],
             "Estado" => "Pendiente",
             "Titular" => "MotoExpress LTDA",
             "Expediente" => "EXP-008",
@@ -1178,7 +1178,7 @@ function alerts(){
             'channels'          => [1, 2],
             'description'       => 'Lorem Ipsum',
             'attachments'       => [],
-            'limit'             => date('Y')."-".date('m') + 1 ."-04 00:00:00",
+            'limit'             => date('Y')."-".((int) date('m') + 1) ."-04 00:00:00",
             'calendar'          => 'Holiday'
         ]
     ];
@@ -1430,7 +1430,7 @@ function vigiaMark(){
                     'brand_reference'       => array_values(array_filter(getBrands(), function($item) {
                         return $item->id == 6;
                     }))[0] ?? null,                    
-                    'umbral'        => 0.55,
+                    'umbral'        => 0.94,
                     'termino_vigilado'  => 'Vigilar marca de mi portafolio',
                     'tipo_similitud'    => 'Fonética',
                     'niza'              => [15, 25, 33],

@@ -91,27 +91,27 @@
                         </button>
                     </li>
                 </ul>
-                <div class="tab-content p-0 bg-none" style="height: fit-content;">
-                    <div class="tab-pane fade show active card-action"  id="navs-pills-detail-1" role="tabpanel">
+                <div class="tab-content p-0 bg-none w-0" style="height: fit-content;">
+                    <div class="tab-pane fade show active"  id="navs-pills-detail-1" role="tabpanel">
                         <div class="card">
+                            <div class="card-header py-2">
+                                <h4 class="card-title m-0 d-flex justify-content-lg-start justify-content-md-center">Listado de búsquedas</h4>
+                            </div>
                             <div class="card-body py-0">
-                                <div class="card-datatable">
+                                <div class="card-datatable pt-0">
                                     <table class="datatables-basic table table-bordered text-center h-100" id="table_datatable"></table>
                                 </div>
                             </div>
-                            <!-- <div class="d-flex align-items-end row">
-                                <div class="col-md-12">
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-md-12 col-xxl-12">
-                                <div class="card">
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                     
                     <div class="tab-pane fade card-action" id="navs-pills-detail-2" role="tabpanel">
                         <div class="card">
+                            <div class="card-header py-2">
+                                <h4 class="card-title w-100 m-0 d-flex justify-content-lg-start justify-content-md-center">
+                                    Gacetas
+                                </h4>
+                            </div>
                             <div class="card-body py-0">
                                 <div class="card-datatable table-responsive pt-0 content-datatables-basic">
                                     <table class="datatables-basic table table-bordered" id="table_datatable_2">
@@ -415,7 +415,7 @@
                                     Hallazgos encontrados
                                 </h5>
                             </div>
-                            <div class="card-body">
+                            <!-- <div class="card-body">
                                 <div class="table-responsive text-nowrap">
                                     <table class="table" id="table_findigns">
                                         <thead class="table-light">
@@ -438,8 +438,13 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
+
+                        <div class="row" id="findings">
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -613,6 +618,39 @@
                 <div
                     class="offcanvas offcanvas-end width-add"
                     tabindex="-2"
+                    id="canvasHallazgosComparacion"
+                    aria-labelledby="canvasHallazgosComparacionLabel">
+                    
+                    <div class="offcanvas-header">
+                        <h4 id="canvasHallazgosComparacionLabel" class="offcanvas-title">Hallazgos Comparacion</h4>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+
+                        <div id="hallazgo-comparacion"></div>
+                        
+                        <div class="d-flex align-items-start mt-4">
+                            <button
+                                id="closeBtn"
+                                type="button"
+                                class="btn btn-outline-secondary d-grid"
+                                data-bs-dismiss="offcanvas">
+                                Cerrar
+                                </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-lg-8 col-md-12 col-sm-12"><!--  Hallazgos -->
+                
+                <div
+                    class="offcanvas offcanvas-end width-add"
+                    tabindex="-2"
                     id="canvasHallazgos"
                     aria-labelledby="canvasHallazgosLabel">
                     
@@ -655,7 +693,7 @@
                 </div>
         </div>
 
-        <div class="col-lg-8 col-md-12 col-sm-12"><!--  Hallazgos -->
+        <div class="col-lg-8 col-md-12 col-sm-12"><!--  Gaceta -->
                 
                 <div
                     class="offcanvas offcanvas-end"
@@ -695,6 +733,248 @@
                 </div>
         </div>
 
+        <div class="col-lg-8 col-md-12 col-sm-12"><!--  Oposición -->
+                
+                <div
+                    class="offcanvas offcanvas-end width-add"
+                    tabindex="-2"
+                    id="canvasOposicion"
+                    aria-labelledby="canvasOposicionLabel">
+                    
+                    <div class="offcanvas-header">
+                        <h4 id="canvasOposicionLabel" class="offcanvas-title">Crear Oposicion</h4>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+                        
+                        <form action="/upload">
+                            <div class="divider">
+                                <div class="divider-text">Marca Propia</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="select2 form-select required" data-allow-clear="false" id="brand-propio-add" name="brand-propio-add" aria-describedby="brand-propio-Help">
+                                            <option value=""></option>
+                                            <?php foreach (getBrands() as $key => $brand): ?>
+                                                <option value="<?= $brand->id ?>"><?= "$brand->Marca" ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        <label for="brand-propio-add">Marca Propia *</label>
+                                    </div>
+
+                                    <div id="brand-propio-Help" class="form-text"></div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="select2 form-select required" data-allow-clear="true" id="clases-propio-add" name="clases-propio-add" aria-describedby="clases-propio-Help" multiple>
+                                            <option value=""></option>
+                                            <?php foreach (getClasesNiza() as $key => $niza): ?>
+                                                <option value="<?= $niza->id ?>"><?= "$niza->id" ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        <label for="clases-propio-add">Clases Niza *</label>
+                                    </div>
+
+                                    <div id="clases-propio-Help" class="form-text"></div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="select2 form-select required" data-allow-clear="false" id="pais-propio-add" name="pais-propio-add" aria-describedby="pais-propio-Help">
+                                            <option value=""></option>
+                                            <?php foreach (countries() as $key => $country): ?>
+                                                <option value="<?= $country->id ?>"><?= "$country->name - $country->code" ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        <label for="pais-propio-add">País/Juridcción *</label>
+                                    </div>
+
+                                    <div id="pais-propio-Help" class="form-text"></div>
+                                </div>
+                            </div>
+
+                            <div class="divider">
+                                <div class="divider-text">Marca Detectada</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="select2 form-select required" data-allow-clear="false" id="brand-detectada-add" name="brand-detectada-add" aria-describedby="brand-detectada-Help">
+                                            <option value=""></option>
+                                            <?php foreach (getBrands() as $key => $brand): ?>
+                                                <option value="<?= $brand->id ?>"><?= "$brand->Marca" ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        <label for="brand-detectada-add">Marca Detectada *</label>
+                                    </div>
+
+                                    <div id="brand-detectada-Help" class="form-text"></div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="select2 form-select required" data-allow-clear="true" id="clases-detectada-add" name="clases-detectada-add" aria-describedby="clases-detectada-Help" multiple>
+                                            <option value=""></option>
+                                            <?php foreach (getClasesNiza() as $key => $niza): ?>
+                                                <option value="<?= $niza->id ?>"><?= "$niza->id" ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        <label for="clases-detectada-add">Clases Niza *</label>
+                                    </div>
+
+                                    <div id="clases-detectada-Help" class="form-text"></div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="select2 form-select required" data-allow-clear="false" id="tipo-filter" name="tipo"  aria-describedby="tipoHelp">
+                                            <option value=""></option>
+                                            <option value="Absoluta">Absoluta</option>
+                                            <option value="Confusión">Confusión</option>
+                                            <option value="Competencia desleal">Competencia desleal</option>
+                                        </select>
+                                        <label for="tipo-filter">Tipo Causal</label>
+                                    </div>
+
+                                    <div id="tipoHelp" class="form-text"></div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" class="form-control date-input" placeholder="YYYY-MM-DD" id="flatpickr-date" value="<?= date('Y-m-d') ?>">
+                                        <label for="flatpickr-date">Fecha publicacion</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="select2 form-select required" data-tag="true" data-allow-clear="false" id="titular" name="titular" aria-describedby="estadoHelp">
+                                            <option value=""></option>
+                                        </select>
+                                        <label for="titular">Titular *</label>
+                                    </div>
+
+                                    <div id="titularHelp" class="form-text"></div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="d-flex align-items-start mt-4">
+                            <button
+                                type="button"
+                                class="btn btn-primary d-grid mx-4"
+                                data-bs-dismiss="offcanvas">
+                                Guardar
+                                </button>
+
+                            <button
+                                id="closeBtn"
+                                type="button"
+                                class="btn btn-outline-secondary d-grid"
+                                data-bs-dismiss="offcanvas">
+                                Cerrar
+                                </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-lg-8 col-md-12 col-sm-12"><!--  AlertBoard -->
+                
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-2"
+                    id="canvasAlerta"
+                    aria-labelledby="canvasAlertaLabel">
+                    
+                    <div class="offcanvas-header">
+                        <h4 id="canvasAlertaLabel" class="offcanvas-title">Crear Alerta</h4>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+                        
+                        <form action="/upload">
+                            
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <textarea class="form-control h-px-100" id="description" placeholder="Descripción"></textarea>
+                                        <label for="description">Descripción</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" class="form-control date-input" placeholder="YYYY-MM-DD" id="flatpickr-date-2">
+                                        <label for="flatpickr-date-2">Fecha limite</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                                    <div class="form-floating form-floating-outline input-filter">
+                                        <select class="select2 form-select required" data-allow-clear="true" id="responsable-add" name="responsable-add" aria-describedby="estadoHelp">
+                                            <option value=""></option>
+                                            <option value="Laura Gómez">Laura Gómez</option>
+                                            <option value="Carlos Pérez">Carlos Pérez</option>
+                                            <option value="Sofía Ruiz">Sofía Ruiz</option>
+                                        </select>
+                                        <label for="responsable-add">Responsable *</label>
+                                    </div>
+
+                                    <div id="responsable-addHelp" class="form-text">
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input allDay-switch" id="notification-1" />
+                                        <label class="form-check-label text-green" for="notification-1"><i class="ri-whatsapp-line"></i> WhatsApp</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input allDay-switch" id="notification-2" />
+                                        <label class="form-check-label text-orange text-darken-5" for="notification-2"><i class="ri-google-fill"></i> Correo Electronico</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="d-flex align-items-start mt-4">
+                            <button
+                                type="button"
+                                class="btn btn-primary d-grid mx-4"
+                                data-bs-dismiss="offcanvas">
+                                Guardar
+                                </button>
+
+                            <button
+                                id="closeBtn"
+                                type="button"
+                                class="btn btn-outline-secondary d-grid"
+                                data-bs-dismiss="offcanvas">
+                                Cerrar
+                                </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -704,10 +984,6 @@
     <script src="<?= base_url(['assets/vendor/libs/select2/select2.js']) ?>"></script>
     <script src="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.js']) ?>"></script>
     <script src="<?= base_url(['assets/vendor/libs/nouislider/nouislider.js']) ?>"></script>
-    <script src="<?= base_url([' assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js']) ?>"></script>
-    <script src="<?= base_url([' assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js']) ?>"></script>
-    <script src="<?= base_url([' assets/vendor/libs/jquery-timepicker/jquery-timepicker.js']) ?>"></script>
-    <script src="<?= base_url([' assets/vendor/libs/pickr/pickr.js']) ?>"></script>
     <script src="<?= base_url(['assets/vendor/libs/dropzone/dropzone.js']) ?>"></script>
     <?= $this->include('layouts/js_datatables') ?>
 

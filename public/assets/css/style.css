@@ -76,3 +76,7 @@ ins { background-color: #ccffcc; color: green; }
     background: transparent !important;
     box-shadow: none !important;
 }
+
+.w-0{
+    width: 0px !important;
+}
