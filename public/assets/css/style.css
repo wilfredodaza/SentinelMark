@@ -80,3 +80,7 @@ ins { background-color: #ccffcc; color: green; }
 .w-0{
     width: 0px !important;
 }
+
+.w-min{
+    width: min-content !important;
+}

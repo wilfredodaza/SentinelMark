@@ -1505,19 +1505,49 @@ function getGacetas(){
             'id'        => 1,
             'date'      => '2025-10-31',
             'register'  => 867,
-            'state'     => 'Correcto'
+            'state'     => 'Correcto',
+            'file'      => '1.pdf'
         ],
         (object)[
             'id'        => 2,
             'date'      => '2025-09-30',
             'register'  => 765,
-            'state'     => 'Error parcial'
+            'state'     => 'Error parcial',
+            'file'      => '2.pdf'
         ],
         (object)[
             'id'        => 3,
             'date'      => '2025-08-31',
             'register'  => 689,
-            'state'     => 'Error'
+            'state'     => 'Error',
+            'file'      => '3.pdf'
         ]
     ];
+}
+
+function getGrupoDinamico($valor, $p) {
+    if ($valor <= $p[25]) return "Grupo 1 (Bajo)";
+    if ($valor <= $p[50]) return "Grupo 2 (Medio)";
+    if ($valor <= $p[75]) return "Grupo 3 (Alto)";
+    // if ($valor <= $p[80]) return "Grupo 4 (Alto)";
+    return "Grupo 4 (Muy Alto)";
+}
+
+function ajustarColor($percent) {
+    $hex = isset(configInfo()['primary_color']) && !empty(configInfo()['primary_color']) ? (string) configInfo()['primary_color'] : '8e24aa';
+    // Limpia el "#"
+    $hex = str_replace('#', '', $hex);
+
+    // Convierte a RGB
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+
+    // Ajuste: percent puede ser negativo (oscurecer) o positivo (aclarar)
+    $r = max(0, min(255, $r + ($r * $percent)));
+    $g = max(0, min(255, $g + ($g * $percent)));
+    $b = max(0, min(255, $b + ($b * $percent)));
+
+    // Regresar a HEX
+    return sprintf("#%02x%02x%02x", $r, $g, $b);
 }

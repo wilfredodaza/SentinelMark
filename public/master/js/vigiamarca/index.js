@@ -1,3 +1,5 @@
+let myDropzone;
+
 $(() => {
 
     const select2 = $('.form-select');
@@ -73,15 +75,11 @@ $(() => {
         {title: "Acciones", data: 'id', render: (_, __, res) => {
             return `
                 <div class="d-flex justify-content-center align-items-center">
-                    <a href="javascript:void(0)" onclick="edit(${_})" class="btn btn-sm btn-text-secundary rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-secundary" data-bs-original-title="Ver resultados">
-                        <i class="ri-file-search-line"></i>
+                    <a href="javascript:void(0)" onclick="edit(${_})" class="btn btn-sm btn-text-secundary rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-secundary" data-bs-original-title="Editar">
+                        <i class="fa-duotone fa-solid fa-pen-to-square"></i>
                     </a>
                     <a href="javascript:void(0);" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-more-2-line"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end m-0" style="">
-
-                        <li><a href="javascript:void(0);" onclick="edit(${res.id})" class="dropdown-item">
-                            <i class="fa-duotone fa-solid fa-pen-to-square"></i> Editar  
-                        </a></li>
 
                         ${
                             res.state == 'En curso' ? `
@@ -176,10 +174,10 @@ $(() => {
             { title: 'Estado', data: 'state' },
             { title: 'Acciones', data: 'id', render: (id) => `
                 <div class="d-flex justify-content-center align-items-center">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-text-info rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-info" data-bs-original-title="Editar">
+                    <a href="javascript:void(0);" onclick="editGaceta(${id})" class="btn btn-sm btn-text-info rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-info" data-bs-original-title="Editar">
                         <i class="ri-edit-line"></i>
                     </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-text-danger rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-danger" data-bs-original-title="Eliminar">
+                    <a href="javascript:void(0);" onclick="decline()" class="btn btn-sm btn-text-danger rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-danger" data-bs-original-title="Eliminar">
                         <i class="ri-delete-bin-2-line"></i>
                     </a>
                 </div>
@@ -343,21 +341,25 @@ $(() => {
             //   ]
             // },
             {
-              text: '<i class="ri-add-line ri-16px me-sm-2"></i> <span class="d-none d-sm-inline-block">Añadir Gaceta</span>',
-              className: 'create-new btn btn-primary waves-effect waves-light my-2',
-              action: async function (e, dt, button, config) {
-                // canvasAddClaseNiza
-                const offCanvasElement = document.querySelector('#canvasGaceta');
-                let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
-                offCanvasEl.show();
+                text: '<i class="ri-add-line ri-16px me-sm-2"></i> <span class="d-none d-sm-inline-block">Añadir Gaceta</span>',
+                className: 'create-new btn btn-primary waves-effect waves-light my-2',
+                action: async function (e, dt, button, config) {
+                    // canvasAddClaseNiza
+                    if (Dropzone.instances.length > 0) {
+                        Dropzone.instances.forEach(dz => dz.destroy());
+                    }
+
+                    const offCanvasElement = document.querySelector('#canvasGaceta');
+                    let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
+                    offCanvasEl.show();
+                }
             }
-            }
-          ],
-          initComplete: () => {
+        ],
+        initComplete: () => {
             $('.title-tabla-2.head-label').html('<h5 class="card-title mb-0">Gacetas cargadas</h5>');
             const dropzoneBasicAddDoc = document.querySelector('#dropzone-basic-created');
             if (dropzoneBasicAddDoc) {
-                const myDropzone = new Dropzone(dropzoneBasicAddDoc, {
+                myDropzone = new Dropzone(dropzoneBasicAddDoc, {
                 previewTemplate: previewTemplate(),
                     parallelUploads: 1,
                     maxFilesize: 5,
@@ -365,17 +367,68 @@ $(() => {
                     maxFiles: 1
                 });
             }
-          }
-      })
+        }
+    })
 
 })
+
+function editGaceta(id){
+    const gaceta = gacetas.find(g => g.id == id);
+
+    // ----- Reiniciar dropzones previas -----
+    if (Dropzone.instances.length > 0) {
+        Dropzone.instances.forEach(dz => dz.destroy());
+    }
+
+    // console.log(gaceta)
+
+    if (gaceta.file) {
+        const existingFileUrl = base_url([`master/docs/gacetas/${gaceta.file}`]);
+        const existingFileName = gaceta.file;
+    
+        const mockFile = {
+            name: existingFileName,
+            size: 123456 // si no sabes el tamaño no importa
+        };
+    
+        // Mostrar archivo existente en Dropzone
+        myDropzone.displayExistingFile(mockFile, existingFileUrl);
+    
+        // Registrar el archivo como cargado
+        myDropzone.files.push(mockFile);
+    
+        // Evitar que permita agregar otro si maxFiles = 1
+        myDropzone.emit("complete", mockFile);
+            const previewEl = mockFile.previewElement;
+            const imgThumb = previewEl.querySelector("img[data-dz-thumbnail]");
+            const noPreview = previewEl.querySelector(".dz-nopreview");
+    
+            // ocultamos la imagen
+            imgThumb.style.display = "none";
+    
+            // mostramos el ícono PDF
+            noPreview.style.display = "flex";
+            noPreview.innerHTML = `
+                <i class="fa-solid fa-file-pdf" style="
+                    font-size: 48px;
+                    color: #e74c3c;
+                    width: 100%;
+                    text-align: center;
+                "></i>
+            `;
+    }
+
+    const offCanvasElement = document.querySelector('#canvasGaceta');
+    let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
+    offCanvasEl.show();
+}
 
 function decline(state){
 
     Swal.fire({
-        title: `${state == 'Activa' ? 'Inactivar' : 'Activar'} registro`,
+        title: `Eliminar registro`,
         showCancelButton: true,
-        confirmButtonText: `${state == 'Activa' ? 'Inactivar' : 'Activar'} registro`,
+        confirmButtonText: `Eliminar registro`,
         cancelButtonText: "Cancelar",
         customClass: {
             confirmButton: "btn btn-primary",
@@ -385,7 +438,7 @@ function decline(state){
         if (result.isConfirmed) {
             Swal.fire({
                 icon: 'success',
-                title: `Registro ${state == 'Activa' ? 'inactivado' : 'activado'}.`,
+                title: `Registro eliminado.`,
                 showConfirmButton: true,
                 allowOutsideClick: false,
                 customClass: {
@@ -694,17 +747,17 @@ function loadData(data){
     $('#responsable').val(data.frecuencia ?? null).trigger('change');
     $('#defaultCheck1').val(data.defaultCheck1 ?? null);
 
-    if(data.check_fonetica){
-        $('#fonetica').attr('disabled', false);
-    }else{
-        $('#fonetica').attr('disabled', true);
-    }
+    // if(data.check_fonetica){
+    //     $('#fonetica').attr('disabled', false);
+    // }else{
+    //     $('#fonetica').attr('disabled', true);
+    // }
 
-    if(data.check_difusa){
-        $('#fuzzy').attr('disabled', false);
-    }else{
-        $('#fuzzy').attr('disabled', true);
-    }
+    // if(data.check_difusa){
+    //     $('#fuzzy').attr('disabled', false);
+    // }else{
+    //     $('#fuzzy').attr('disabled', true);
+    // }
 }
 
 function comparation(id_search, id){
