@@ -27,3 +27,33 @@ function formatDate($fecha){
     return "$dia de $mes de $anio";
     
 }
+
+function getMonths() {
+    $months = [
+        1  => ['nombre' => 'Enero',      'short' => 'Ene'],
+        2  => ['nombre' => 'Febrero',    'short' => 'Feb'],
+        3  => ['nombre' => 'Marzo',      'short' => 'Mar'],
+        4  => ['nombre' => 'Abril',      'short' => 'Abr'],
+        5  => ['nombre' => 'Mayo',       'short' => 'May'],
+        6  => ['nombre' => 'Junio',      'short' => 'Jun'],
+        7  => ['nombre' => 'Julio',      'short' => 'Jul'],
+        8  => ['nombre' => 'Agosto',     'short' => 'Ago'],
+        9  => ['nombre' => 'Septiembre', 'short' => 'Sep'],
+        10 => ['nombre' => 'Octubre',    'short' => 'Oct'],
+        11 => ['nombre' => 'Noviembre',  'short' => 'Nov'],
+        12 => ['nombre' => 'Diciembre',  'short' => 'Dic']
+    ];
+
+    // Convertimos el array en objetos
+    $objects = [];
+    foreach ($months as $num => $info) {
+        $obj = (object) [
+            'num'    => $num,
+            'nombre' => $info['nombre'],
+            'short'  => $info['short']
+        ];
+        $objects[] = $obj;
+    }
+
+    return $objects;
+}

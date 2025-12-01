@@ -46,6 +46,70 @@
             </div>
         </div>
 
+        <div class="col-lg-12">
+            <div class="card h-100">
+                <div class="card-body d-flex justify-content-between flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-primary rounded">
+                            <i class="ri-folders-line ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">78 %</h5>
+                            <p class="mb-0">Marcas del portafolio <br>con vigilancia activa.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-warning rounded">
+                            <i class="ri-pie-chart-2-line ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">88 %</h5>
+                            <p class="mb-0">Hallazgos clasificados <br>como <b>Relevantes</b></p>
+                        </div>
+                        </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-info rounded">
+                            <i class="ri-sticky-note-add-fill ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">675</h5>
+                            <p class="mb-0">Nº de oposiciones creadas <br>desde hallazgos</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-info rounded">
+                            <i class="ri-arrow-left-right-line ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">36 H</h5>
+                            <p class="mb-0">Tiempo promedio entre publicación en gaceta y creación de oposición.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-info rounded">
+                            <i class="ri-arrow-left-right-line ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">122</h5>
+                            <p class="mb-0">Reducción de falsos positivos a lo largo del tiempo</p>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-12 col-md-12 col-sm-12 px-0">
             <div class="nav-align-left mb-6">
                 <ul class="nav nav-pills nav-fill me-4" style="max-width: 200px; height: min-content" role="tablist">
@@ -249,7 +313,7 @@
                                                     <input class="form-check-input m-auto" id="check_fonetica" type="checkbox" value="" aria-label="Checkbox for following text input">
                                                 </div>
                                                 <div class="form-floating form-floating-outline">
-                                                    <select class="select2 form-select required" disabled data-allow-clear="true" data-tag="true" id="fonetica" name="fonetica" aria-describedby="paisHelp" data-placeholder="Seleccione sensibilidad">
+                                                    <select class="select2 form-select required" data-allow-clear="true" data-tag="true" id="fonetica" name="fonetica" aria-describedby="paisHelp" data-placeholder="Seleccione sensibilidad">
                                                         <option value=""></option>
                                                         <option value="Baja">Baja</option>
                                                         <option value="Media">Media</option>

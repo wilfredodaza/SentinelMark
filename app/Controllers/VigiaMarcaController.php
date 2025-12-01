@@ -7,6 +7,8 @@ use CodeIgniter\API\ResponseTrait;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
+use DateTime;
+
 class VigiaMarcaController extends BaseController
 {
     use ResponseTrait;
@@ -81,5 +83,139 @@ class VigiaMarcaController extends BaseController
         ];
 
         return $this->respond($return);
+    }
+
+    public function report(){
+
+        $this->data->sub_title = '<small class="text-muted"> | Reporte de conflictividad</small>';
+
+        $this->data->breadcrumbs = [
+            (object) ['name'    => 'Home', 'url' => base_url(['dashboard'])],
+            (object) ['name'    => $this->data->title, 'url' => base_url(['dashboard', 'vigiamarca'])],
+            (object) ['name'    => 'Reporte'],
+        ];
+
+        $hoy = new DateTime();
+        $mesActual  = (int)$hoy->format('n');   // 1–12
+        $anioActual = (int)$hoy->format('Y');  // año actual
+        $months     = getMonths();
+        $clases     = getClasesNiza();
+
+        foreach ($months as $key => $m) {
+            $m->hallazgos = random_int(0, 80);
+            if ($m->num > $mesActual) {
+                $m->year = $anioActual - 1;       // año pasado
+            }
+            else {
+                $m->year = $anioActual;           // mes actual
+            }
+        }
+
+        usort($months, function($a, $b) {
+            // Primero ordenar por año DESC
+            if ($a->year !== $b->year) {
+                return $a->year - $b->year;
+            }
+        
+            // Luego por número de mes DESC
+            return $a->num - $b->num;
+        });
+        
+
+        $months_chunks = array_chunk($months, ceil(count($months) / 2));
+        // $meses  = getMonths();
+
+        $mapheat = [];
+        foreach ($clases as $key => $clase) {
+            $clase->meses = getMonths();
+            $mapheat[] = [
+                "name" => $clase->id,
+                "data" => []
+            ];
+            foreach ($clase->meses as $key_2 => $mes) {
+                $mes->hallazgos   = random_int(5, 30);
+                $mapheat[$key]["data"][] = [
+                    "x" => $mes->short,
+                    "y" => $mes->hallazgos
+                ];
+            }
+        }
+
+        // var_dump($mapheat); die;
+
+        // 1. Obtener totales
+        $totales = [];
+        foreach ($clases as $clase) {
+            $total = array_sum(array_map(fn($m) => $m->hallazgos, $clase->meses));
+            $totales[] = $total;
+        }
+
+        // Ordenar para calcular percentiles
+        sort($totales);
+
+        // 2. Calcular percentiles para 5 grupos
+        $percentiles = [
+            25 => $totales[(int)(count($totales) * 0.25)],
+            50 => $totales[(int)(count($totales) * 0.50)],
+            75 => $totales[(int)(count($totales) * 0.75)],
+            // 80 => $totales[(int)(count($totales) * 0.80)],
+        ];
+
+        // 4. Construir estructura de grupos
+        $treemapGroups = [];
+
+        foreach ($clases as $clase) {
+
+            $totalHallazgos = array_sum(array_map(fn($m) => $m->hallazgos, $clase->meses));
+            $grupo = getGrupoDinamico($totalHallazgos, $percentiles);
+
+            if (!isset($treemapGroups[$grupo])) {
+                $treemapGroups[$grupo] = [];
+            }
+
+            $treemapGroups[$grupo][] = [
+                "x" => $clase->id,
+                "y" => $totalHallazgos
+            ];
+        }
+
+        // var_dump($treemapGroups); die;
+
+        // 5. Convertir a formato ApexCharts
+        $seriesTreemap = [];
+
+        foreach ($treemapGroups as $grupo => $data) {
+            $seriesTreemap[] = [
+                "name" => $grupo,
+                "data" => $data
+            ];
+        }
+
+        $porcentajes = [-0.40, -0.20, 0, 0.20, 0.40];
+        $coloresGenerados = [];
+        foreach ($porcentajes as $p) {
+            $coloresGenerados[] = ajustarColor($p);
+        }
+
+        // var_dump([$seriesTreemap, $percentiles]); die;
+
+        $brands = getBrands();
+
+        $brands = array_slice($brands, 0, 5);
+
+        foreach ($brands as $key => $b) {
+            $b->hallazgos = random_int(5, 30);
+        }
+
+        return view('vigiamarca/report', [
+            'data'          => $this->data,
+            'months_chunks' => $months_chunks,
+            'months'        => $months,
+            'clases'        => $clases,
+            'brands'        => $brands,
+            'seriesTreemap' => $seriesTreemap,
+            'coloresGenerados' => $coloresGenerados,
+            'mapheat'        => $mapheat
+        ]);
     }
 }

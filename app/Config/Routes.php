@@ -102,6 +102,7 @@ $routes->group('dashboard', function ($routes){
 	$routes->group('vigiamarca', function($routes){
 		$routes->get('', 'VigiaMarcaController::index');
 		$routes->get('data', 'VigiaMarcaController::data');
+		$routes->get('report', 'VigiaMarcaController::report');
 	});
 });
 
