@@ -47,6 +47,9 @@ $(() => {
         {title: "Acciones", data: 'id', render: (_, __, res) => {
             return `
                 <div class="d-flex justify-content-center align-items-center">
+                    <a href="javascript:void(0)" class="btn btn-sm btn-text-primary rounded-pill btn-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasPreview" aria-controls="offcanvasEnd" >
+                        <i class="ri-search-eye-line"></i>
+                    </a>
                     <a href="javascript:void(0)" onclick="edit(${_})" class="btn btn-sm btn-text-info rounded-pill btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-info" data-bs-original-title="Editar">
                         <i class="ri-edit-2-line"></i>
                     </a>

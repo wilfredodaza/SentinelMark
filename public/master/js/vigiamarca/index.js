@@ -127,7 +127,7 @@ $(() => {
             }
         },
         {
-            text: '<i class="ri-add-fill me-1"></i><span class="d-none d-sm-inline-block">Agregar</span>',
+            text: '<i class="ri-add-fill me-1"></i><span class="d-none d-sm-inline-block">Nueva busqueda</span>',
             className: `btn rounded-pill btn-primary waves-effect mx-2 my-2 btn-add`,
             action: async function (e, dt, button, config) {
                 

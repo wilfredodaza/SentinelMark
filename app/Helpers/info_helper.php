@@ -1551,3 +1551,93 @@ function ajustarColor($percent) {
     // Regresar a HEX
     return sprintf("#%02x%02x%02x", $r, $g, $b);
 }
+
+function typeCosts(){
+    return [
+        (object) [
+            'id'    => 1,
+            'name'  => 'Tasas'
+        ],
+        (object) [
+            'id'    => 2,
+            'name'  => 'Honorarios'
+        ],
+        (object) [
+            'id'    => 3,
+            'name'  => 'Litigios'
+        ],
+        (object) [
+            'id'    => 4,
+            'name'  => 'Otros'
+        ]
+    ];
+}
+
+function subtype(){
+    return [
+        (object) [
+            'id'    => 1,
+            'name'  => 'Solicitud'
+        ],
+        (object) [
+            'id'    => 2,
+            'name'  => 'Oposición'
+        ],
+        (object) [
+            'id'    => 3,
+            'name'  => 'Renovación'
+        ],
+        (object) [
+            'id'    => 4,
+            'name'  => 'Recurso'
+        ],
+        (object) [
+            'id'    => 5,
+            'name'  => 'Litigio Nulidad'
+        ],
+    ];
+}
+
+function state_costs(){
+    return [
+        (object) ['id'  => 1, 'name'    => 'Pendiente'],
+        (object) ['id'  => 2, 'name'    => 'Pagado'],
+        (object) ['id'  => 3, 'name'    => 'Anulado'],
+    ];
+}
+
+function getCosts(){
+    $data = [];
+
+    $total = random_int(1, 20);
+
+    for ($i = 0; $i < $total; $i++) { 
+        $data[] = (object) [
+            'id'            => $i + 1,
+            'date'          => date('Y-m-d'),
+            'brand_id'      => random_int(1, 15),
+            'country_id'    => random_int(1, 12),
+            'type'          => random_int(1, 4),
+            'sub_type'      => random_int(1, 5),
+            'origen'        => random_int(1, 3),
+            'amount'        => number_format(random_int(1, 9) * 1_000_000, 2, '.', ''),
+            'state'         => random_int(1, 3),
+            'file'          => random_int(0, 1) ? '1.pdf' : '',
+            'responsable'   => 'Wilfredo Daza'
+        ];
+    }
+
+    return $data;
+}
+
+function sumCostsAmount(){
+    $sum = 0;
+
+    foreach (getCosts() as $c) {
+        // Quitar comas y convertir a float
+        $value = floatval(str_replace(',', '', $c->amount));
+        $sum += $value;
+    }
+
+    return $sum;
+}

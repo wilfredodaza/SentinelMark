@@ -375,6 +375,68 @@
                 </div>
         </div>
 
+        <div class="col-lg-8 col-md-12 col-sm-12">
+                
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-2"
+                    id="canvasPreview"
+                    aria-labelledby="canvasPreviewLabel">
+                    <div class="offcanvas-header">
+                    <h4 id="canvasPreviewLabel" class="offcanvas-title">Vista previa</h4>
+                    <button
+                        type="button"
+                        class="btn-close text-reset"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody class="table-border-bottom-0">
+                                    <tr>
+                                        <td>
+                                            <b>Fecha Origen</b>
+                                        </td>
+                                        <td>10-10-2025<br><hr>Viernes 10 de octubre del 2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Regla Aplicada</b>
+                                        </td>
+                                        <td>CL_VIG_30D</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Fecha resultado</b>
+                                        </td>
+                                        <td>26-11-2025<br><hr>Miercoles 26 de noviembre del 2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Días hábiles/calendario usados</b></td>
+                                        <td>30 Dias</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Ajustes por festivos</b></td>
+                                        <td>3 Dias</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                                     
+                        
+                        <div class="d-flex align-items-start mt-4">
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary d-grid"
+                                data-bs-dismiss="offcanvas">
+                                Cancelar
+                                </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
     </div>
 </div>
 
