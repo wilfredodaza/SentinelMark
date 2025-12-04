@@ -38,10 +38,10 @@ class VigiaMarcaController extends BaseController
 
     public function index()
     {
-        $this->data->tablists = [
-                (object) ['id' => 1, 'name' => "Busquedas", 'icon' => "ri-menu-search-line"],
-                (object) ['id' => 2, 'name' => "Gacetas", 'icon' => "ri-folder-received-line"],
-        ];
+        // $this->data->tablists = [
+        //         (object) ['id' => 1, 'name' => "Busquedas", 'icon' => "ri-menu-search-line"],
+        //         (object) ['id' => 2, 'name' => "Gacetas", 'icon' => "ri-folder-received-line"],
+        // ];
         return view('vigiamarca/index', [
             'data'          => $this->data,
         ]);
@@ -217,5 +217,48 @@ class VigiaMarcaController extends BaseController
             'coloresGenerados' => $coloresGenerados,
             'mapheat'        => $mapheat
         ]);
+    }
+
+    public function gacetas()
+    {
+
+        $this->data->sub_title = '<small class="text-muted">| Gacetas</small>';
+        $this->data->breadcrumbs = [
+            (object) ['name'    => 'Home', 'url' => base_url(['dashboard'])],
+            (object) ['name'    => $this->data->title],
+            (object) ['name'    => "Gacetas"],
+        ];
+
+        return view('vigiamarca/gacetas', [
+            'data'          => $this->data,
+        ]);
+    }
+
+    public function gacetas_data(){
+        $total = count(getGacetas());
+
+        // if (!empty($search)) {
+        //     $builder->groupStart();
+        //     foreach ($columns as $col) {
+        //         $builder->orLike($col, $search);
+        //     }
+        //     $builder->groupEnd();
+        // }
+
+        $filteredData = array_reverse(getGacetas());
+        
+        $pagedData = $this->dataTable->length >= 0
+            ? array_slice($filteredData, $this->dataTable->start, $this->dataTable->length)
+            : $filteredData;
+
+        $return = (object) [
+            'data'              => $pagedData,
+            'draw'              => $this->dataTable->draw,
+            'recordsTotal'      => $total,
+            'recordsFiltered'   => count($filteredData),
+            'post'              => $this->dataTable
+        ];
+
+        return $this->respond($return);
     }
 }

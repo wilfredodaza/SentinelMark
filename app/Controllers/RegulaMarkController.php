@@ -37,11 +37,11 @@ class RegulaMarkController extends BaseController
 
     public function index()
     {
-        $this->data->tablists      = [
-            (object) ['id' => 1, 'name' => "Reglas por País / Jurisdicción", 'icon' => "ri-global-line"],
-            (object) ['id' => 2, 'name' => "Frecuencia", 'icon' => "ri-time-line"],
-            (object) ['id' => 3, 'name' => "Registro de envio", 'icon' => "ri-send-plane-fill"],
-        ];
+        // $this->data->tablists      = [
+        //     (object) ['id' => 1, 'name' => "Reglas por País / Jurisdicción", 'icon' => "ri-global-line"],
+        //     (object) ['id' => 2, 'name' => "Frecuencia", 'icon' => "ri-time-line"],
+        //     (object) ['id' => 3, 'name' => "Registro de envio", 'icon' => "ri-send-plane-fill"],
+        // ];
 
         return view('regulamark/index', [
             'data'          => $this->data,

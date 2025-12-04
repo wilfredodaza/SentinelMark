@@ -103,6 +103,14 @@ $routes->group('dashboard', function ($routes){
 		$routes->get('', 'VigiaMarcaController::index');
 		$routes->get('data', 'VigiaMarcaController::data');
 		$routes->get('report', 'VigiaMarcaController::report');
+		$routes->get('gacetas', 'VigiaMarcaController::gacetas');
+		$routes->get('gacetas/data', 'VigiaMarcaController::gacetas_data');
+	});
+
+	$routes->group('finances', function($routes){
+		$routes->get('', 'FinanzasController::index');
+		$routes->get('data', 'FinanzasController::getData');
+		$routes->get('roi', 'FinanzasController::roi');
 	});
 });
 

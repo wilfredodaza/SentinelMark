@@ -32,19 +32,25 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
         },
         // <"card-header flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>>
         columns,
+
         columnDefs: [
             {
-              // For Responsive
-              className: 'pointer',
-              orderable: false,
-              searchable: false,
-            //   responsivePriority: 2,
-              targets: 0,
-              render: function (data, type, full, meta) {
-                return `<b class="pointer">${data}</b>`;
-              }
+                // Primera columna (no permitir ocultar)
+                targets: 0,
+                className: 'pointer noVis',
+                orderable: false,
+                searchable: false,
+                render: function (data) {
+                    return `<b class="pointer">${data}</b>`;
+                }
             },
-          ],
+            {
+                // Última columna — NO visible en colvis y nunca se oculta
+                targets: -1,
+                className: 'all noVis',
+                responsivePriority: 1
+            }
+        ],
         dom: 'r<"row"<"col-sm-12 col-md-12 col-lg-4 mt-3 mt-md-0 d-flex justify-content-center justify-content-lg-start justify-content-md-center align-items-center"l><"col-sm-12 col-md-12 col-lg-8 d-flex justify-content-center justify-content-lg-end justify-content-md-center align-items-center"<"dt-action-buttons text-end pt-0 pt-md-0"B>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
@@ -54,40 +60,40 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
                 previous: '<i class="ri-arrow-left-s-line"></i>'
             }
         },
-        responsive: {
-            details: {
-              display: $.fn.dataTable.Responsive.display.modal({
-                header: function (row) {
-                  var data = row.data();
-                  return '';
-                }
-              }),
-              type: 'column',
-              renderer: function (api, rowIdx, columns) {
-                var data = $.map(columns, function (col, i) {
-                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                    ? '<tr data-dt-row="' +
-                        col.rowIndex +
-                        '" data-dt-column="' +
-                        col.columnIndex +
-                        '">' +
-                        '<td>' +
-                        col.title +
-                        ':' +
-                        '</td> ' +
-                        '<td>' +
-                        col.data +
-                        '</td>' +
-                        '</tr>'
-                    : '';
-                }).join('');
+        // responsive: {
+        //     details: {
+        //       display: $.fn.dataTable.Responsive.display.modal({
+        //         header: function (row) {
+        //           var data = row.data();
+        //           return '';
+        //         }
+        //       }),
+        //       type: 'column',
+        //       renderer: function (api, rowIdx, columns) {
+        //         var data = $.map(columns, function (col, i) {
+        //           return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+        //             ? '<tr data-dt-row="' +
+        //                 col.rowIndex +
+        //                 '" data-dt-column="' +
+        //                 col.columnIndex +
+        //                 '">' +
+        //                 '<td>' +
+        //                 col.title +
+        //                 ':' +
+        //                 '</td> ' +
+        //                 '<td>' +
+        //                 col.data +
+        //                 '</td>' +
+        //                 '</tr>'
+        //             : '';
+        //         }).join('');
     
-                return data ? $('<table class="table"/><tbody />').append(data) : false;
-              }
-            }
-          },
-        // scrollX: true,
-        // scrollY: false,
+        //         return data ? $('<table class="table"/><tbody />').append(data) : false;
+        //       }
+        //     }
+        // },
+        scrollX: true,
+        scrollY: false,
         ordering: false,
         processing: true,
         serverSide: true,
@@ -105,27 +111,48 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
 
         },
         initComplete: async () => {
-            // if(filter){
-            //     $('.filter').html(`
-            //         <div class="col-sm-6 w-100">
-            //             <div class="input-group input-group-merge">
-            //                 <span class="input-group-text cursor-pointer" id="filter-global-2"><i class="ri-menu-search-line"></i></span>
-            //                 <div class="form-floating form-floating-outline">
-            //                     <input type="text" id="filter-global" class="form-control" placeholder="" aria-describedby="password2-modern">
-            //                     <label for="filter-global">Buscador</label>
-            //                 </div>
-            //             </div>
-            //         </div>    
-            //     `)
-            //     let searchTimeout; // variable global para controlar el tiempo
+            let key = `columns_${hashUrl(url_base)}`;
+            let saved = localStorage.getItem(key);
 
-            //     $('#filter-global').on('keyup', function () {
-            //         clearTimeout(searchTimeout); // limpia el tiempo anterior
-                    
-            //         const value = this.value;
-            //         table_datatable[0].search(value).draw();
-            //     });
-            // }
+            if (saved) {
+                let arr = JSON.parse(saved);
+
+                arr.forEach((visible, index) => {
+                    table_datatable[0].column(index).visible(visible, false);
+                });
+
+                table_datatable[0].columns.adjust().draw(false);
+            }
+
+            table_datatable[0].on('column-visibility.dt', function () {
+
+                let visibilidad = [];
+            
+                table_datatable[0].columns().every(function () {
+                    visibilidad.push(this.visible());
+                });
+            
+                localStorage.setItem(
+                    `columns_${hashUrl(url_base)}`,
+                    JSON.stringify(visibilidad)
+                );
+            });
+
+            table_datatable[0].on('buttons-action.dt', function (e, buttonApi, dataTable, node, config) {
+                if (config.extend === 'colvis') {
+            
+                    // Ocultar de la lista la primera y la última columna
+                    $('.dt-button-collection .dt-button button')
+                        .each(function () {
+                            let index = $(this).attr('data-cv-idx');
+            
+                            if (index == 0 || index == table_datatable[0].columns().count() - 1) {
+                                $(this).hide(); // oculta el elemento del menú
+                            }
+                        });
+                }
+            });
+            
         },
 
 
@@ -133,54 +160,48 @@ function load_datatable(url, columns, buttons = [], url_page, filter = false){
             {
                 extend: 'collection',
                 className: 'btn rounded-pill btn-label-primary waves-effect mx-2 my-2 dropdown-toggle',
-                text: '<i class="ri-external-link-line me-sm-1"></i> <span class="d-none d-sm-inline-block">Reportes</span>',
-                buttons: default_buttons()
+                text: '<i class="ri-apps-2-line me-sm-1"></i> <span class="d-none d-sm-inline-block">Opciones</span>',
+                autoClose: false,
+                buttons: [
+                    // ==== SECCIÓN: CONFIGURACIÓN ====
+                    {
+                        text: '<span class="fw-bold text-primary">Configuración</span>',
+                        className: 'dropdown-header',
+                        action: function(){ return false; }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="ri-eye-line me-1"></i> Mostrar / Ocultar Columnas',
+                        className: 'dropdown-item'
+                    },
+                    {
+                        extend: 'colvisRestore',
+                        text: '<i class="ri-refresh-line me-1"></i> Restaurar Columnas',
+                        className: 'dropdown-item'
+                    },
+        
+                    // Separator visual
+                    {
+                        text: '<hr class="dropdown-divider m-1">',
+                        className: 'dt-divider',
+                        action: function(){ return false; }
+                    },
+        
+                    // ==== SECCIÓN: REPORTES ====
+                    {
+                        text: '<span class="fw-bold text-primary">Reportes</span>',
+                        className: 'dropdown-header',
+                        action: function(){ return false; }
+                    },
+        
+                    ...default_buttons()
+                ]
             },
+        
             ...buttons
         ]
     });
 }
-
-function load_datatable_total(columns, data, buttons = []){
-    table_datatable[0] = $(`#table_datatable`).DataTable({
-        data,
-        columns,
-        dom: '<"card-header flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-0 pt-md-0"B>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-        language: { url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json" },
-        responsive: false,
-        scrollX: true,
-        scrollY: false,
-        ordering: false,
-        processing: true,
-        serverSide: false,
-        drawCallback: async function(setting){
-        },
-        initComplete: async () => {
-            // await indicadores();
-        },
-        buttons
-    });
-}
-
-const exportConfig = {
-    format: {
-      body: function (inner, coldex, rowdex) {
-        if (inner.length <= 0) return inner;
-        var el = $.parseHTML(inner);
-        var result = '';
-        $.each(el, function (index, item) {
-          if (item.classList !== undefined && item.classList.contains('user-name')) {
-            result += item.lastChild.firstChild.textContent;
-          } else if (item.innerText === undefined) {
-            result += item.textContent;
-          } else {
-            result += item.innerText;
-          }
-        });
-        return result;
-      }
-    }
-  };
 
 function default_buttons(){
     const buttons = [
@@ -302,6 +323,49 @@ function default_buttons(){
     return buttons;
 }
 
+function load_datatable_total(columns, data, buttons = []){
+    table_datatable[0] = $(`#table_datatable`).DataTable({
+        data,
+        columns,
+        dom: '<"card-header flex-column flex-md-row border-bottom"<"head-label text-center"><"dt-action-buttons text-end pt-0 pt-md-0"B>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+        language: { url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json" },
+        responsive: false,
+        scrollX: true,
+        scrollY: false,
+        ordering: false,
+        processing: true,
+        serverSide: false,
+        drawCallback: async function(setting){
+        },
+        initComplete: async () => {
+            // await indicadores();
+        },
+        buttons
+    });
+}
+
+const exportConfig = {
+    format: {
+      body: function (inner, coldex, rowdex) {
+        if (inner.length <= 0) return inner;
+        var el = $.parseHTML(inner);
+        var result = '';
+        $.each(el, function (index, item) {
+          if (item.classList !== undefined && item.classList.contains('user-name')) {
+            result += item.lastChild.firstChild.textContent;
+          } else if (item.innerText === undefined) {
+            result += item.textContent;
+          } else {
+            result += item.innerText;
+          }
+        });
+        return result;
+      }
+    }
+  };
+
+
+
 function reloadTable(){
     table_datatable[0].ajax.reload();
 }
@@ -356,4 +420,13 @@ async function sweetAlertExport(visibleColumns, dt){
     });
 
     return selected;
+}
+
+function hashUrl(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0;
+    }
+    return hash;
 }

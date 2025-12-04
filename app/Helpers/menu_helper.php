@@ -37,6 +37,7 @@ function menus(){
             ])
             ->join('menus', 'menus.id = permissions.menu_id')
             ->join('roles', 'roles.id = permissions.role_id')
+            ->orderBy('position', 'ASC')
             ->findAll();
     }
 
@@ -46,7 +47,8 @@ function menus(){
                 'type'          => 'secundario',
                 'status'        => 'active',
                 'references'    => $menu->id
-            ])->findAll();
+            ])
+            ->orderBy('position', 'ASC')->findAll();
             foreach ($menu->sub_menu as $key => $sub_menu) {
                 $sub_menu->base_url = urlOption($sub_menu->id);
             }
@@ -59,6 +61,7 @@ function menus(){
             ])
             ->join('menus', 'menus.id = permissions.menu_id')
             ->join('roles', 'roles.id = permissions.role_id')
+            ->orderBy('position', 'ASC')
             ->findAll();
             foreach ($menu->sub_menu as $key => $sub_menu) {
                 $sub_menu->base_url = urlOption($sub_menu->id);

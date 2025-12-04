@@ -113,26 +113,18 @@
         <div class="col-lg-12 col-md-12 col-sm-12 px-0">
             <div class="nav-align-left mb-6">
                 <ul class="nav nav-pills nav-fill me-4" style="max-width: 200px; height: min-content" role="tablist">
-                    <?php foreach ($data->tablists as $key => $tablist): ?>
-                        <li class="nav-item w-100">
+                    <li class="nav-item w-100 d-none">
                             <button
                                 type="button"
-                                class="nav-link <?= $key == 0 ? "active" : ""?>"
+                                class="nav-link active"
                                 role="tab"
                                 data-bs-toggle="tab"
-                                data-bs-target="#navs-pills-detail-<?= $tablist->id ?>"
-                                aria-controls="navs-pills-detail-<?= $tablist->id ?>"
+                                data-bs-target="#navs-pills-detail-1"
+                                aria-controls="navs-pills-detail-1"
                                 aria-selected="true">
-                                <span class="d-none d-sm-block">
-                                <div class="d-flex justify-content-between align-items-center">
-                                        <div class=""><i class="tf-icons <?= $tablist->icon ?> me-2"></i> </div>
-                                        <div class="" style="text-wrap:auto"><?= $tablist->name ?></div>
-                                    </div>
-                                </span>
-                                <i class="<?= $tablist->icon ?> ri-20px d-sm-none"></i>
+                                Hidden
                             </button>
                         </li>
-                    <?php endforeach ?>
                     <li class="nav-item d-none">
                         <button
                             class="nav-link"
@@ -854,45 +846,6 @@
                 </div>
         </div>
 
-        <div class="col-lg-8 col-md-12 col-sm-12"><!--  Gaceta -->
-                
-                <div
-                    class="offcanvas offcanvas-end"
-                    tabindex="-2"
-                    id="canvasGaceta"
-                    aria-labelledby="canvasGacetaLabel">
-                    
-                    <div class="offcanvas-header">
-                        <h4 id="canvasGacetaLabel" class="offcanvas-title">Añadir Gaceta</h4>
-                        <button
-                            type="button"
-                            class="btn-close text-reset"
-                            data-bs-dismiss="offcanvas"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body mx-0 flex-grow-0 h-100">
-                        
-                        <form action="/upload" class="dropzone needsclick d-flex justify-content-center my-2 p-0" id="dropzone-basic-created">
-                            <div class="dz-message needsclick m-0 py-5">
-                                Arrastra el archivo aquí o haz clic para subirlo.
-                            </div>
-                            <div class="fallback">
-                            <input name="file" type="file" />
-                            </div>
-                        </form>
-                        
-                        <div class="d-flex align-items-start mt-4">
-                            <button
-                                id="closeBtn"
-                                type="button"
-                                class="btn btn-outline-secondary d-grid"
-                                data-bs-dismiss="offcanvas">
-                                Cerrar
-                                </button>
-                        </div>
-                    </div>
-                </div>
-        </div>
 
         <div class="col-lg-8 col-md-12 col-sm-12"><!--  Oposición -->
                 
