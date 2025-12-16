@@ -13,7 +13,7 @@ class FinanzasController extends BaseController
 
     public function __construct(){
         helper('info');
-        $title = 'Finanzas';
+        $title = 'Finanzas IP';
         $this->data = (object) [
             'title'         => $title,
             'breadcrumbs'   => [
@@ -36,8 +36,59 @@ class FinanzasController extends BaseController
 
     public function index()
     {
+
+        $this->data->breadcrumbs = [
+            (object) ['name'    => 'Home', 'url' => base_url(['dashboard'])],
+            (object) ['name'    => $this->data->title],
+            (object) ['name'    => 'Panel de costo'],
+        ];
+
+        $this->data->sub_title = '<small class="text-muted">| Panel de costo</small>';
+
+        $litigios_registros  = 0;
+
+        $this->data->litigios_registros = (object) [
+            'litigios'              => 0,
+            'litigios_porcentage'   => 50,
+            'registros'             => 0,
+            'registros_porcentage'  => 50
+        ];
+
+        foreach ($this->registers as $register) {
+
+            // Normalizar amount a número
+            $amount = floatval(str_replace(',', '', $register->amount));
+
+            switch ($register->type) {
+
+                case '3':
+                    // Suma litigios
+                    $this->data->litigios_registros->litigios += $amount;
+                    $litigios_registros += $amount;
+                    break;
+
+                case '4':
+                    // Subtipos que cuentan para registros
+                    if (in_array($register->sub_type, ['3', '4'])) {
+                        $this->data->litigios_registros->registros += $amount;
+                        $litigios_registros += $amount;
+                    }
+                    break;
+            }
+        }
+
+        if($litigios_registros > 0){
+            $this->data->litigios_registros->litigios_porcentage = round(($this->data->litigios_registros->litigios * 100) / $litigios_registros, 1);
+            $this->data->litigios_registros->registros_porcentage = round(($this->data->litigios_registros->registros * 100) / $litigios_registros, 1);
+        }
+
+
+
+        // return $this->respond($this->data);
+
         return view('finanzas/index', [
-            'data'  => $this->data
+            'data'      => $this->data,
+            'registros' => $this->registers
         ]);
     }
 

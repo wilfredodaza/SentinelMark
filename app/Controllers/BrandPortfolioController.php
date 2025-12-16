@@ -144,7 +144,14 @@ class BrandPortfolioController extends BaseController
     {
         return view('brand_portfolio/index', [
             'data'          => $this->data,
-            'clasesNiza'    => $this->clasesNiza
+            'clasesNiza'    => $this->clasesNiza,
+            'marcas'        => $this->registers,
+            'activas'       => array_filter($this->registers, function($item) {
+                return $item->company_state->id == 1;
+            }),
+            'riesgo'       => array_filter($this->registers, function($item) {
+                return $item->company_state->id == 3;
+            })
         ]);
     }
 
