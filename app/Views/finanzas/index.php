@@ -41,6 +41,92 @@
             </div>
         </div>
 
+        <div class="col-lg-12 col-xx-12">
+            <div class="row">
+                <!-- Total Visits -->
+                <div class="col-lg-4 col-md-6 col-sm-12 h-100">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-5 ">
+                                    <div class="d-flex w-100 gap-2 align-items-center mb-2">
+                                        <p class="mb-0">Litigios</p>
+                                    </div>
+                                    <h5 class="mb-2"><?= $data->litigios_registros->litigios_porcentage ?>%</h5>
+                                    <p class="mb-0">$ <?= number_format($data->litigios_registros->litigios, 0, '.', ',') ?></p>
+                                </div>
+                                <div class="col-2">
+                                    <div class="divider divider-vertical">
+                                        <div class="divider-text">
+                                            <span class="badge-divider-bg">VS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5  justify-content-end text-end">
+                                    <div class="d-flex w-100 gap-2 justify-content-end align-items-center mb-2">
+                                        <p class="mb-0">Registro/Renovación</p>
+                                    </div>
+                                    <h5 class="mb-2"><?= $data->litigios_registros->registros_porcentage ?>%</h5>
+                                    <p class="mb-0">$ <?= number_format($data->litigios_registros->registros, 0, '.', ',') ?></p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mt-4">
+                                <div class="progress w-100 rounded" style="height: 8px">
+                                    <div
+                                    class="progress-bar bg-warning"
+                                    style="width: <?= $data->litigios_registros->litigios_porcentage ?>%"
+                                    role="progressbar"
+                                    aria-valuenow="<?= $data->litigios_registros->litigios_porcentage ?>"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                                    <div
+                                    class="progress-bar bg-primary"
+                                    role="progressbar"
+                                    style="width: <?= $data->litigios_registros->registros_porcentage ?>%"
+                                    aria-valuenow="<?= $data->litigios_registros->registros_porcentage ?>"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Total Visits -->
+                
+                <!-- Performance Chart -->
+                <div class="col-12 col-xxl-4 col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="mb-1">Performance</h5>
+                            <div class="dropdown">
+                            <button
+                                class="btn btn-text-secondary rounded-pill text-muted border-0 p-1"
+                                type="button"
+                                id="performanceDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="ri-more-2-line ri-20px"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="performanceDropdown">
+                                <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                        <div id="performanceChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Performance Chart -->
+            </div>
+        </div>
+
+
         <div class="col-md-12 col-xxl-12">
             <div class="card">
                 <div class="d-flex align-items-end row">
@@ -221,6 +307,145 @@
                 </div>
             </div>
         </div>
+
+        
+        <div class="col-lg-8 col-md-12 col-sm-12"><!--  Filtro -->
+                
+                <div
+                    class="offcanvas offcanvas-end width-add"
+                    tabindex="-2"
+                    id="canvasFilter"
+                    aria-labelledby="canvasFilterLabel">
+                    <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+                        <form action="" id="form-filter">
+
+                            <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0">
+                                <div class="app-academy-md-50 card-body d-flex align-items-md-center flex-column text-md-center mb-6 py-0">
+                                    <span class="card-title mb-4 lh-lg px-md-12 h4 text-heading">
+                                        Busca <span class="text-primary text-nowrap">todo en un mismo lugar</span>.
+                                    </span>
+                                    <div class="d-flex align-items-center justify-content-between app-academy-md-80 w-100">
+                                        <input type="search" placeholder="Realice tu busqueda" class="form-control form-control-sm me-4">
+                                        <button type="submit" class="btn btn-primary btn-icon waves-effect waves-light">
+                                            <i class="ri-search-line ri-22px"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion accordion-popout" id="accordionPopout">
+                                <div class="accordion-item mx-0">
+                                    <h2 class="accordion-header" id="headingPopoutOne">
+                                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionPopoutOne" aria-expanded="false" aria-controls="accordionPopoutOne">
+                                            Busqueda especifica
+                                        </button>
+                                    </h2>
+
+                                    <div id="accordionPopoutOne" class="accordion-collapse collapse" aria-labelledby="headingPopoutOne" data-bs-parent="#accordionPopout" style="">
+                                        <div class="accordion-body">
+                                            <div class="row">
+
+
+                                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                                    <div class="form-floating form-floating-outline mb-5">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control date-input"
+                                                            id="eventEndStart"
+                                                            name="eventEndStart"
+                                                            placeholder="Fecha Inicio" />
+                                                        <label for="eventEndStart">Fecha inicio</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                                    <div class="form-floating form-floating-outline mb-5">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control date-input"
+                                                            id="eventEndDate"
+                                                            name="eventEndDate"
+                                                            placeholder="Fecha Finalización" />
+                                                        <label for="eventEndDate">Fecha Finalización</label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                                                    <div class="form-floating form-floating-outline">
+                                                        <select class="select2 form-select required" data-allow-clear="true" id="type-filter" name="type-filter" aria-describedby="type-Help">
+                                                            <option value=""></option>
+                                                            <?php foreach (typeCosts() as $key => $type): ?>
+                                                                <option value="<?= $type->id ?>"><?= "$type->name" ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                        <label for="type-filter">Tipo de costo *</label>
+                                                    </div>
+
+                                                    <div id="type-Help" class="form-text"></div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                                    <div class="form-floating form-floating-outline">
+                                                        <select class="select2 form-select required" data-allow-clear="true" id="pais-filter" name="pais-filter" aria-describedby="pais-Help">
+                                                            <option value=""></option>
+                                                            <?php foreach (countries() as $key => $country): ?>
+                                                                <option value="<?= $country->id ?>"><?= "$country->name - $country->code" ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                        <label for="pais-filter">País/Juridcción *</label>
+                                                    </div>
+
+                                                    <div id="pais-Help" class="form-text"></div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                                    <div class="form-floating form-floating-outline">
+                                                        <select class="select2 form-select required" data-allow-clear="true" id="brand-filter" name="brand-filter" aria-describedby="brand-Help">
+                                                            <option value=""></option>
+                                                            <?php foreach (getBrands() as $key => $brand): ?>
+                                                                <option value="<?= $brand->id ?>"><?= "$brand->Marca / $brand->Expediente" ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                        <label for="brand-filter">Marca/Expediente *</label>
+                                                    </div>
+
+                                                    <div id="brand-Help" class="form-text"></div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                                                    <div class="form-floating form-floating-outline">
+                                                        <input type="text" class="form-control" id="unit" placeholder="" aria-describedby="unitHelp">
+                                                        <label for="unit">Unidad de negocio</label>
+                                                        <span class="form-floating-focused"></span>
+                                                    </div>
+                                                    <div id="unitHelp" class="text-red"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                        
+                        <div class="d-flex align-items-start mt-4">
+                            <button
+                                type="submit"
+                                class="btn btn-primary d-grid mx-4"
+                                data-bs-dismiss="offcanvas">
+                                Filtrar
+                                </button>
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary d-grid"
+                                data-bs-dismiss="offcanvas">
+                                Cancelar
+                                </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
     </div>
 </div>
 
@@ -234,6 +459,12 @@
 
     <script>
         const info_page = <?= json_encode($data) ?>;
+        <?php
+            $res = groupCostsByYearAndType($registros);
+            $groups = buildRadarFormat($res);
+        ?>
+        const res = <?= json_encode($res) ?>;
+        const groups = <?= json_encode($groups) ?>;
     </script>
 
     <script src="<?= base_url(['master/js/finanzas/index.js?v='.getCommit()]) ?>"></script>

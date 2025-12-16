@@ -38,10 +38,14 @@ class VigiaMarcaController extends BaseController
 
     public function index()
     {
-        // $this->data->tablists = [
-        //         (object) ['id' => 1, 'name' => "Busquedas", 'icon' => "ri-menu-search-line"],
-        //         (object) ['id' => 2, 'name' => "Gacetas", 'icon' => "ri-folder-received-line"],
-        // ];
+        $this->data->breadcrumbs = [
+            (object) ['name'    => 'Home', 'url' => base_url(['dashboard'])],
+            (object) ['name'    => $this->data->title],
+            (object) ['name'    => 'Panel de busqueda'],
+        ];
+
+        $this->data->sub_title = '<small class="text-muted">| Panel de busqueda</small>';
+
         return view('vigiamarca/index', [
             'data'          => $this->data,
         ]);

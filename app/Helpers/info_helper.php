@@ -1609,12 +1609,19 @@ function state_costs(){
 function getCosts(){
     $data = [];
 
-    $total = random_int(1, 20);
+    $total = random_int(11, 50);
+
+    $inicio = new DateTime('2020-01-01');
+    $fin = new DateTime(); // hoy
+
+    $timestampInicio = $inicio->getTimestamp();
+    $timestampFin    = $fin->getTimestamp();
 
     for ($i = 0; $i < $total; $i++) { 
+        $random = mt_rand($timestampInicio, $timestampFin);
         $data[] = (object) [
             'id'            => $i + 1,
-            'date'          => date('Y-m-d'),
+            'date'          => date('Y-m-d', $random),
             'brand_id'      => random_int(1, 15),
             'country_id'    => random_int(1, 12),
             'type'          => random_int(1, 4),
@@ -1640,4 +1647,65 @@ function sumCostsAmount(){
     }
 
     return $sum;
+}
+
+function groupCostsByYearAndType($costs)
+{
+    $result = [];
+
+    foreach ($costs as $item) {
+        $year = substr($item->date, 0, 4);
+        $type = intval($item->type);
+        $amount = floatval($item->amount);
+
+        if (!isset($result[$year])) {
+            $result[$year] = [];
+        }
+
+        if (!isset($result[$year][$type])) {
+            $result[$year][$type] = [
+                'total' => 0,
+                'count' => 0
+            ];
+        }
+
+        $result[$year][$type]['total'] += $amount;
+        $result[$year][$type]['count']++;
+    }
+
+    return $result;
+}
+
+function buildRadarFormat($grouped)
+{
+    ksort($grouped);
+    $tipos = [1, 2, 3, 4]; // tus categorías del radar
+    $series = [];
+
+    foreach ($grouped as $year => $typesData) {
+
+        $data = [];
+
+        foreach ($tipos as $tipo) {
+            if (isset($typesData[$tipo])) {
+                // usar total
+                $data[] = round($typesData[$tipo]['total'], 2);
+
+                // si quieres promedio sería:
+                // $data[] = round($typesData[$tipo]['total'] / $typesData[$tipo]['count'], 2);
+            } else {
+                $data[] = 0;
+            }
+        }
+
+        $series[] = [
+            'name' => $year,
+            'data' => $data
+        ];
+    }
+
+    return [
+        'categories' => $tipos,
+        'series' => $series
+    ];
 }

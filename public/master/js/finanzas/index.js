@@ -9,6 +9,22 @@ $(() => {
         });
     }
 
+    let cardColor, labelColor, headingColor, borderColor, bodyColor;
+
+  if (isDarkStyle) {
+    cardColor = config.colors_dark.cardColor;
+    labelColor = config.colors_dark.textMuted;
+    headingColor = config.colors_dark.headingColor;
+    borderColor = config.colors_dark.borderColor;
+    bodyColor = config.colors_dark.bodyColor;
+  } else {
+    cardColor = config.colors.cardColor;
+    labelColor = config.colors.textMuted;
+    headingColor = config.colors.headingColor;
+    borderColor = config.colors.borderColor;
+    bodyColor = config.colors.bodyColor;
+  }
+
     const url = 'dashboard/finances/data';
     const columns = [
         {title: '#', data: 'id'},
@@ -48,7 +64,7 @@ $(() => {
     const buttons = [
         {
             text: '<i class="ri-filter-3-line"></i><span class="d-none d-sm-inline-block">Filtrar</span>',
-            className: `btn rounded-pill btn-label-info waves-effect mx-2 mt-2`,
+            className: `btn rounded-pill btn-label-info waves-effect mx-2 my-2`,
             action: async function (e, dt, button, config) {
                 const offCanvasElement = document.querySelector('#canvasFilter');
                 let offCanvasEl = new bootstrap.Offcanvas(offCanvasElement);
@@ -57,7 +73,7 @@ $(() => {
         },
         {
             text: '<i class="ri-add-fill me-1"></i><span class="d-none d-sm-inline-block">Agregar</span>',
-            className: `btn rounded-pill btn-primary waves-effect mx-2 mt-2 btn-add`,
+            className: `btn rounded-pill btn-primary waves-effect mx-2 my-2 btn-add`,
             action: async function (e, dt, button, config) {
                 
                 $('#brand-add').val(null).trigger('change')
@@ -70,16 +86,10 @@ $(() => {
                 $('#state-add').val(null).trigger('change')
                 $('#proveedor-add').val(null).trigger('change')
 
-                // ----- Quitar elementos previos del contenedor -----
-                const dropzoneElement = document.querySelector("#dropzone-basic-add"); // tu ID real
-                if (dropzoneElement) {
-                    dropzoneElement.querySelectorAll(".dz-preview").forEach(el => el.remove());
-                }
-
                 // ----- Reiniciar dropzones previas -----
-                if (Dropzone.instances.length > 0) {
-                    Dropzone.instances.forEach(dz => dz.destroy());
-                }
+    if (Dropzone.instances.length > 0) {
+        Dropzone.instances.forEach(dz => dz.destroy());
+    }
 
 
                 const offCanvasElement = document.querySelector('#canvasAdd');
@@ -101,6 +111,99 @@ $(() => {
             maxFiles: 1
         });
     }
+    
+    const colores = []
+    groups.series.forEach(data => {
+        colores.push(hashColorHex(data.name))
+    })
+
+    console.log([res, groups])
+    // Performance Radar Chart
+  // --------------------------------------------------------------------
+  const performanceChartEl = document.querySelector('#performanceChart'),
+  performanceChartConfig = {
+    chart: {
+      height: 247,
+      type: 'radar',
+      toolbar: {
+        show: false
+      }
+    },
+    legend: {
+      show: true,
+      markers: { offsetX: -5, height: 10, width: 10 },
+      itemMargin: { horizontal: 16 },
+      fontFamily: 'Inter',
+      fontSize: '15px',
+      labels: {
+        colors: bodyColor,
+        useSeriesColors: false
+      }
+    },
+    plotOptions: {
+      radar: {
+        polygons: {
+          strokeColors: borderColor,
+          connectorColors: borderColor
+        }
+      }
+    },
+    yaxis: {
+      show: false
+    },
+    series: groups.series,
+    colors: colores,
+    xaxis: {
+      categories: groups.categories,
+      labels: {
+        show: true,
+        style: {
+          colors: [labelColor, labelColor, labelColor, labelColor, labelColor, labelColor],
+          fontSize: '15px',
+          fontFamily: 'Inter'
+        }
+      }
+    },
+    fill: {
+      opacity: [1, 0.9]
+    },
+    stroke: {
+      show: false,
+      width: 0
+    },
+    markers: {
+      size: 0
+    },
+    grid: {
+      show: false,
+      padding: {
+        top: 0,
+        bottom: -10
+      }
+    },
+    responsive: [
+      {
+        breakpoint: 1398,
+        options: {
+          chart: {
+            height: 287
+          }
+        }
+      },
+      {
+        breakpoint: 1200,
+        options: {
+          chart: {
+            height: 393
+          }
+        }
+      }
+    ]
+  };
+if (typeof performanceChartEl !== undefined && performanceChartEl !== null) {
+  const performanceChart = new ApexCharts(performanceChartEl, performanceChartConfig);
+  performanceChart.render();
+}
 })
 
 function edit(id){

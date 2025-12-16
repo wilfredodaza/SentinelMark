@@ -19,7 +19,11 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-<?= isset($data->breadcrumbs) ? 6 : 12 ?> col-md-12 col-sm-6">
-                            <h3 class="mb-0"><?= $data->title ?? 'Titulo' ?></h3>
+                            <h3 class="mb-0"><?= $data->title ?? 'Titulo' ?>
+                            <button class="btn btn-label-info waves-effect waves-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasHelper" aria-controls="canvasHelper">
+                                <i class="ri-question-line"></i>
+                            </button>
+                            </h3>
                         </div>
                         <?php if(isset($data->breadcrumbs) ): ?>
                             <div class="col-lg-6 col-md-12 col-sm-6 d-flex align-items-center justify-content-end flex-end">
@@ -41,6 +45,46 @@
             </div>
         </div>
 
+        <div class="col-lg-12">
+            <div class="card h-100">
+                <div class="card-body d-flex justify-content-between flex-wrap gap-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-primary rounded">
+                                <i class="ri-functions ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0"><?= number_format(count($marcas), 0, '.', ',') ?></h5>
+                            <p class="mb-0">Total de marcas</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-info rounded">
+                                <i class="ri-verified-badge-line ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0"><?= number_format(count($activas), 0, '.', ',') ?></h5>
+                            <p class="mb-0">Marcas activas</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar">
+                            <div class="avatar-initial bg-label-warning rounded">
+                                <i class="ri-alarm-warning-line ri-24px"></i>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0"><?= number_format(count($riesgo), 0, '.', ',') ?></h5>
+                            <p class="mb-0">Marcas en riesgo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-12 col-xxl-12">
             <div class="card">
                 <div class="d-flex align-items-end row">
@@ -50,6 +94,45 @@
                                 <table class="datatables-basic table table-bordered text-center h-100" id="table_datatable"></table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-12 col-sm-12">
+            <div
+                class="offcanvas offcanvas-end"
+                tabindex="-2"
+                id="canvasHelper"
+                aria-labelledby="canvasHelperLabel">
+                <div class="offcanvas-header">
+                <h4 id="canvasHelperLabel" class="offcanvas-title">¿Qué es el Portafolio de Marcas?</h4>
+                <button
+                    type="button"
+                    class="btn-close text-reset"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+                    <p>
+                        Esta sección centraliza todas las marcas registradas o en trámite de la organización, permitiendo su gestión jurídica, administrativa y estratégica en un solo lugar.
+                        Desde aquí podrás:
+                        <ul>
+                            <li>Consultar el estado legal de cada marca.</li>
+                            <li>Filtrar por país, clase Niza, titular o estado.</li>
+                            <li>Acceder al expediente completo de cada marca.</li>
+                            <li>Identificar marcas activas, inactivas o con riesgo legal.</li>
+                        </ul>
+                        El Portafolio de Marcas es el punto de partida para el seguimiento, defensa, renovación y análisis del valor estratégico de los activos marcarios.
+                    </p>
+                    
+                    <div class="d-flex align-items-start mt-4">
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary d-grid"
+                            data-bs-dismiss="offcanvas">
+                            Cerrar
+                        </button>
                     </div>
                 </div>
             </div>
