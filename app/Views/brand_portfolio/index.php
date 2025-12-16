@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?= base_url(['assets/vendor/libs/select2/select2.css']) ?>" />
     <link rel="stylesheet" href="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.css']) ?>" />
     <link rel="stylesheet" href="<?= base_url(['assets/vendor/libs/dropzone/dropzone.css']) ?>" />
+    <link rel="stylesheet" href="<?= base_url(['assets/vendor/css/pages/app-chat.css']) ?>">
 <?= $this->endsection('styles') ?>
 
 <?= $this->section('content') ?>
@@ -556,12 +557,16 @@
     </div>
 </div>
 
+<?= $this->include('layouts/chat') ?>
+
+
 <?= $this->endsection('content') ?>
 
 <?= $this->section('javaScripts') ?>
     <script src="<?= base_url(['assets/vendor/libs/select2/select2.js']) ?>"></script>
     <script src="<?= base_url(['assets/vendor/libs/flatpickr/flatpickr.js']) ?>"></script>
     <script src="<?= base_url(['assets/vendor/libs/dropzone/dropzone.js']) ?>"></script>
+    <script src="<?= base_url(['assets/js/app-chat.js']) ?>"></script>
     <?= $this->include('layouts/js_datatables') ?>
 
     <script>
