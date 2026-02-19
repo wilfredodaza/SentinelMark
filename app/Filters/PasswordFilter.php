@@ -12,6 +12,9 @@ class PasswordFilter implements FilterInterface
 
     public function before(RequestInterface $request, $arguments = null)
     {
+      if ($request->uri->getSegment(1) == 'password') {
+        return;
+    }
 
       $fechaEspecifica = new \DateTime(session('user')->password->created_at);
       $fechaActual = new \DateTime('now');

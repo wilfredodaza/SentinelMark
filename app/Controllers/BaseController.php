@@ -27,7 +27,6 @@ class BaseController extends Controller
 	 * @var array
 	 */
 	protected $helpers = ['menu', 'emails',  'notifications', 'time', 'configuration', 'layout', 'auth', 'info'];
-
 	/**
 	 * Constructor.
 	 */
@@ -42,5 +41,5 @@ class BaseController extends Controller
 		// E.g.:
 		// $this->session = \Config\Services::session();
 	}
-
 }
+#dd(session()->get());
